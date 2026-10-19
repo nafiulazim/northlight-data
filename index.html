@@ -25,7 +25,14 @@ nav{display:flex;align-items:center;justify-content:space-between;height:68px}
 .links a{text-decoration:none;color:var(--muted);margin-left:26px;font-size:.95rem}
 .links a:hover{color:var(--ink)}
 .cta{background:var(--navy);color:#fff!important;padding:10px 18px;border-radius:999px}
-@media(max-width:760px){.links a:not(.cta){display:none}}
+.menu{display:none;background:none;border:1.5px solid var(--line);border-radius:10px;width:42px;height:42px;font-size:1.2rem;cursor:pointer;color:var(--ink)}
+@media(max-width:760px){
+  .menu{display:block}
+  .links{display:none;position:absolute;top:68px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 20px 18px;flex-direction:column}
+  .links.open{display:flex}
+  .links a{margin:0;padding:14px 0;border-bottom:1px solid var(--line);font-size:1.05rem;color:var(--ink)}
+  .links a.cta{margin-top:14px;text-align:center;border-bottom:0;padding:13px}
+}
 /* hero */
 .hero{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center;padding:84px 0 72px}
 .hero h1{font-size:clamp(2.3rem,5vw,3.6rem);line-height:1.08}
@@ -103,7 +110,8 @@ footer{padding:36px 0 50px;color:var(--muted);font-size:.88rem;text-align:center
 
 <header><div class="wrap"><nav>
   <a class="brand" href="#top"><i><svg width="16" height="16" viewBox="0 0 16 16"><rect x="1" y="9" width="3" height="6" rx="1" fill="#F2B84B"/><rect x="6.5" y="5" width="3" height="10" rx="1" fill="#fff"/><rect x="12" y="1" width="3" height="14" rx="1" fill="#fff"/></svg></i>Northlight Data</a>
-  <div class="links"><a href="#services">Services</a><a href="#work">Work</a><a href="#process">Process</a><a class="cta" href="#contact">Get in touch</a></div>
+  <button class="menu" id="menu" aria-label="Open menu">☰</button>
+  <div class="links" id="links"><a href="#services">Services</a><a href="#work">Work</a><a href="#process">Process</a><a class="cta" href="#contact">Get in touch</a></div>
 </nav></div></header>
 
 <main id="top">
@@ -251,6 +259,9 @@ footer{padding:36px 0 50px;color:var(--muted);font-size:.88rem;text-align:center
 <footer>© <span id="y"></span> Northlight Data · Dashboards & data services</footer>
 
 <script>
+const links=document.getElementById("links"),menu=document.getElementById("menu");
+menu.onclick=()=>{links.classList.toggle("open");menu.textContent=links.classList.contains("open")?"✕":"☰"};
+links.querySelectorAll("a").forEach(a=>a.onclick=()=>{links.classList.remove("open");menu.textContent="☰"});
 document.getElementById("y").textContent=new Date().getFullYear();
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12});
 document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
