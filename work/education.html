@@ -35,6 +35,24 @@ footer a{color:var(--muted)}
 .kpi span.badge2{display:inline-block;vertical-align:middle;font-size:.68rem}
 .ok{background:#DDF1EC;color:#2B7A6C}.no{background:#F8E1DA;color:#A8442D}
 table{width:100%;border-collapse:collapse;font-size:.88rem}th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:600;font-size:.78rem}
+
+/* mobile fixes */
+.grid>*,.kpis>*{min-width:0}
+.ch canvas{max-width:100%}
+@media(max-width:900px){.grid{grid-template-columns:1fr!important}}
+@media(max-width:700px){
+  .wrap{padding:0 14px}
+  .top{padding:14px 0}.top .wrap{flex-direction:column;align-items:flex-start;gap:6px}
+  .bar{gap:8px}.bar select{width:100%;min-width:0}.bar>label,.bar>b{width:100%;margin-top:4px}
+  .seg{width:100%}.seg button{flex:1;padding:10px 6px}
+  .kpis{gap:10px}.kpi{padding:12px}.kpi b{font-size:1.35rem}.kpi span{font-size:.72rem}
+  .card{padding:14px}.ch{height:280px!important}
+  table{display:block;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
+  td b{white-space:normal}
+  .heat{overflow-x:auto}.heat>div{min-width:480px}
+  .insight{font-size:.9rem}
+  .demo{font-size:.8rem}
+}
 </style>
 </head>
 <body>
