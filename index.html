@@ -77,6 +77,17 @@ section{padding:84px 0}
 .proj p{color:rgba(255,255,255,.7);font-size:.93rem;margin:0 0 12px}
 .tags span{display:inline-block;font-size:.72rem;border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:3px 10px;margin:0 6px 6px 0;color:rgba(255,255,255,.8)}
 .note{color:rgba(255,255,255,.55);font-size:.85rem;margin-top:22px}
+.live{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:40px}
+@media(max-width:760px){.live{grid-template-columns:1fr}}
+.lv{display:block;text-decoration:none;color:#fff;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:20px;overflow:hidden;transition:transform .2s}
+.lv:hover{transform:translateY(-4px)}
+.lv img{width:100%;display:block;border-bottom:1px solid rgba(255,255,255,.1)}
+.lv div{padding:20px}
+.lv h3{font-size:1.25rem;margin-bottom:6px}
+.lv p{color:rgba(255,255,255,.72);font-size:.94rem;margin:0 0 12px}
+.lv b{color:var(--gold);font-size:.92rem}
+.badge{display:inline-block;background:var(--gold);color:var(--navy);font-size:.7rem;font-weight:700;letter-spacing:.08em;padding:3px 9px;border-radius:999px;margin-bottom:10px}
+.subh{font-family:Fraunces,Georgia,serif;font-size:1.3rem;margin:0 0 18px}
 /* process */
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:s}
 @media(max-width:900px){.steps{grid-template-columns:1fr 1fr}}
@@ -162,7 +173,12 @@ footer{padding:36px 0 50px;color:var(--muted);font-size:.88rem;text-align:center
 
 <!-- WORK -->
 <section id="work" class="work"><div class="wrap">
-  <div class="head reveal"><div class="eyebrow">Sample work</div><h2>Examples of what's possible</h2><p>A few illustrative dashboards showing the style and depth I can deliver.</p></div>
+  <div class="head reveal"><div class="eyebrow">Sample work</div><h2>Explore live dashboards</h2><p>Real, interactive dashboards built with public data. Click to open, choose a country, and explore.</p></div>
+  <div class="live">
+    <a class="lv reveal" href="/work/energy.html"><img src="/work/energy-thumb.png" alt="Global Energy Transition dashboard preview" loading="lazy"><div><span class="badge">LIVE · INTERACTIVE</span><h3>Global Energy Transition</h3><p>How 138 countries generate electricity, from coal to solar, 2000–2024. KPIs, trends, rankings and auto-generated insights.</p><b>Open dashboard →</b></div></a>
+    <a class="lv reveal" href="/work/co2.html"><img src="/work/co2-thumb.png" alt="CO2 Emissions Explorer dashboard preview" loading="lazy"><div><span class="badge">LIVE · INTERACTIVE</span><h3>CO₂ Emissions Explorer</h3><p>Compare emissions by country, fuel source and per person. Includes country comparison and a bubble chart of all nations.</p><b>Open dashboard →</b></div></a>
+  </div>
+  <h3 class="subh reveal">More dashboard styles</h3>
   <div class="grid3">
     <div class="proj reveal">
       <div class="viz"><svg viewBox="0 0 300 144" width="100%" height="100%">
@@ -211,7 +227,7 @@ footer{padding:36px 0 50px;color:var(--muted);font-size:.88rem;text-align:center
       <div class="txt"><h3>Customer & beneficiary analytics</h3><p>Segments, growth and retention patterns that reveal who you serve and how.</p><div class="tags"><span>Analysis</span><span>Python</span><span>Web dashboard</span></div></div>
     </div>
   </div>
-  <p class="note">Samples use illustrative data. Client work is confidential; examples can be discussed on request.</p>
+  <p class="note">Live dashboards use public data from Our World in Data. Style examples above use illustrative data. Client work is confidential.</p>
 </div></section>
 
 <!-- PROCESS -->
