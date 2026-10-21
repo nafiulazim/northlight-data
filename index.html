@@ -226,6 +226,32 @@ footer a:hover{color:var(--ink)}
 .load{opacity:0;transform:translateY(20px);animation:up .9s cubic-bezier(.2,.8,.2,1) forwards}
 @keyframes up{to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.r,.load{opacity:1;transform:none}}
+
+/* animated hero chart */
+.viz{background:linear-gradient(160deg,#1E3157,#132038);border-radius:24px;padding:22px 22px 16px;color:#fff;box-shadow:0 40px 80px -30px rgba(27,43,75,.6),inset 0 0 0 1px rgba(255,255,255,.06);position:relative;overflow:hidden}
+.viz:before{content:"";position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,var(--vc,rgba(62,158,142,.35)),transparent 70%);top:-120px;right:-100px;transition:background 1s}
+.vz-top{display:flex;justify-content:space-between;align-items:center;gap:10px;position:relative}
+.vz-tag{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.1);padding:5px 11px;border-radius:999px;transition:opacity .4s}
+.vz-live{display:flex;align-items:center;gap:6px;font-size:.75rem;opacity:.8}
+.vz-title{font-size:.95rem;opacity:.85;margin-top:14px;min-height:1.4em;transition:opacity .4s;position:relative}
+.vz-big{display:flex;align-items:baseline;gap:6px;margin:2px 0 4px;position:relative}
+.vz-big b{font-family:Fraunces,Georgia,serif;font-size:clamp(2rem,5vw,2.7rem);font-weight:600;font-variant-numeric:tabular-nums;line-height:1.1}
+.vz-big span{font-size:1rem;opacity:.75}
+.vz-big em{font-style:normal;margin-left:auto;font-size:.85rem;background:rgba(255,255,255,.08);padding:4px 10px;border-radius:8px;font-variant-numeric:tabular-nums}
+#vz{width:100%;height:auto;display:block;overflow:visible}
+.vz-ins{min-height:3.1em;font-size:.95rem;line-height:1.45;color:rgba(255,255,255,.9);opacity:0;transform:translateY(8px);transition:opacity .6s,transform .6s;border-left:3px solid var(--gold);padding-left:12px;margin-top:6px}
+.vz-ins.on{opacity:1;transform:none}
+.vz-ins b{color:var(--gold)}
+.vz-foot{display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:10px;flex-wrap:wrap}
+.vz-steps{display:flex;align-items:center;gap:6px;font-size:.72rem}
+.vz-steps span{padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);transition:all .4s}
+.vz-steps span.on{background:var(--gold);color:var(--navy);font-weight:700}
+.vz-steps i{font-style:normal;opacity:.35}
+.vz-nav{display:flex;gap:6px}
+.vz-nav button{width:9px;height:9px;border-radius:9px;border:0;background:rgba(255,255,255,.25);cursor:pointer;padding:0;transition:all .4s}
+.vz-nav button.on{width:26px;background:var(--gold)}
+.vz-src{font-size:.72rem;color:var(--muted);margin-top:10px;text-align:right}
+@media(max-width:560px){.viz{padding:18px 16px 14px;border-radius:20px}.vz-ins{font-size:.88rem}.vz-steps{font-size:.66rem}}
 </style>
 </head>
 <body>
@@ -254,26 +280,20 @@ footer a:hover{color:var(--ink)}
       </div>
     </div>
     <div class="load" style="animation-delay:.35s;position:relative">
-      <div class="dash" id="heroDash" aria-hidden="true">
-        <div class="top"><span>Programme Overview · Q3</span><span class="live"><span class="dot"></span>Live</span></div>
-        <div class="kpis">
-          <div class="kpi"><span>People reached</span><b class="count" data-to="48.2" data-dec="1" data-suf="k">0</b><small>▲ 12% vs Q2</small></div>
-          <div class="kpi"><span>Budget used</span><b class="count" data-to="71" data-suf="%">0</b><small>On track</small></div>
-          <div class="kpi"><span>Targets met</span><b class="count" data-to="9" data-suf="/12">0</b><small>▲ 2 this quarter</small></div>
-        </div>
-        <div class="panels">
-          <div class="panel"><div class="ptitle">Monthly progress</div>
-            <svg viewBox="0 0 260 70" width="100%" style="margin-top:6px"><path class="line-path" d="M0 60 L30 54 L60 56 L90 42 L120 45 L150 30 L180 33 L210 18 L240 14 L260 8" fill="none" stroke="#F2B84B" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><path class="line-path" d="M0 64 L30 62 L60 59 L90 56 L120 51 L150 47 L180 42 L210 37 L240 32 L260 28" fill="none" stroke="#7FD1BC" stroke-width="2" stroke-dasharray="4 4" style="stroke-dasharray:420;transition-delay:.8s"/></svg>
-            <div class="bars"><i data-h="38"></i><i data-h="52"></i><i data-h="45"></i><i data-h="66"></i><i data-h="58"></i><i data-h="74"></i><i data-h="92"></i></div>
-          </div>
-          <div class="panel" style="display:grid;place-items:center"><div class="ptitle" style="justify-self:start">Completion</div>
-            <svg viewBox="0 0 120 120" width="100%" style="max-width:130px"><circle cx="60" cy="60" r="44" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="14"/><circle class="ring" id="ring" cx="60" cy="60" r="44" fill="none" stroke="#7FD1BC" stroke-width="14" stroke-linecap="round" stroke-dasharray="0 277" transform="rotate(-90 60 60)"/><text x="60" y="66" text-anchor="middle" fill="#fff" font-size="20" font-family="Inter" font-weight="600" class="count" data-to="74" data-suf="%">0</text></svg>
-          </div>
+      <div class="viz" id="viz">
+        <div class="vz-top"><span class="vz-tag" id="vzTag">NGO · Child health</span><span class="vz-live"><span class="dot"></span>Real data</span></div>
+        <div class="vz-title" id="vzTitle">Child deaths before age 5 · Ethiopia</div>
+        <div class="vz-big"><b id="vzVal">–</b><span id="vzUnit"></span><em id="vzYear">2000</em></div>
+        <svg id="vz" viewBox="0 0 520 250" preserveAspectRatio="xMidYMid meet" aria-label="Animated chart"></svg>
+        <div class="vz-ins" id="vzIns">&nbsp;</div>
+        <div class="vz-foot">
+          <div class="vz-steps"><span data-s="0">Raw data</span><i>→</i><span data-s="1">Structure</span><i>→</i><span data-s="2">Insight</span></div>
+          <div class="vz-nav" id="vzNav"><button aria-label="Story 1"></button><button aria-label="Story 2"></button><button aria-label="Story 3"></button></div>
         </div>
       </div>
-      <div class="floatcard fc1"><div class="fc-ico" style="background:#E6F4F0">📈</div><div><b>Report ready</b><span style="color:var(--muted)">Q3 summary · PDF</span></div></div>
-      <div class="floatcard fc2"><div class="fc-ico" style="background:#FDF2DA">✦</div><div><b>Insight ready</b><span style="color:var(--muted)">auto-updated</span></div></div>
+      <div class="vz-src" id="vzSrc"></div>
     </div>
+  
   </div>
 </section>
 
@@ -388,11 +408,84 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return
   el.style.transitionDelay=(i*0.09)+"s";el.classList.add("in");io.unobserve(el)}),{threshold:.12,rootMargin:"0px 0px -40px 0px"});
 $$(".r").forEach(el=>io.observe(el));
 new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");o.disconnect()}}),{threshold:.4}).observe($("#steps"));
-// hero dashboard animation
-function count(el){const to=+el.dataset.to,dec=+(el.dataset.dec||0),suf=el.dataset.suf||"",t0=performance.now(),d=1600;
-  (function f(t){const p=Math.min(1,(t-t0)/d),v=to*(1-Math.pow(1-p,3));el.textContent=v.toFixed(dec)+suf;if(p<1)requestAnimationFrame(f)})(t0)}
-setTimeout(()=>{$$(".count").forEach(count);$$(".bars i").forEach((b,i)=>setTimeout(()=>b.style.height=b.dataset.h+"%",i*90));
-  $$(".line-path").forEach(p=>p.style.strokeDashoffset="0");$("#ring").style.strokeDasharray=(277*.74)+" 277"},700);
+// animated hero chart: raw data -> structure -> insight
+(function(){
+const NS="http://www.w3.org/2000/svg",svg=document.getElementById("vz");if(!svg)return;
+const Y=[...Array(25)].map((_,i)=>2000+i);
+const S=[
+ {tag:"NGO · Child health",title:"Child deaths before age 5 · Ethiopia",unit:"per 1,000 births",dec:1,col:"#7FD1BC",glow:"rgba(62,158,142,.4)",min:0,max:160,ticks:[0,50,100,150],
+  d:[146.7,140.4,134.1,127.7,121.4,115.0,108.8,102.9,97.4,92.3,87.6,83.2,79.1,75.3,71.6,68.2,64.9,61.7,58.9,56.4,54.1,52.0,50.0,48.2,46.5],
+  ref:{v:25,label:"SDG target: 25"},mark:{i:24,label:"46.5"},
+  ins:"Child deaths fell <b>68%</b> since 2000, but are still nearly <b>2×</b> the SDG target of 25.",src:"Source: UN IGME via Gapminder"},
+ {tag:"Sustainability · Energy",title:"Solar + wind share of world electricity",unit:"%",dec:1,col:"#F2B84B",glow:"rgba(242,184,75,.4)",min:0,max:16,ticks:[0,5,10,15],
+  d:[0.2,0.3,0.3,0.4,0.5,0.6,0.7,0.9,1.2,1.5,1.8,2.3,2.8,3.3,3.8,4.5,5.2,6.2,7.0,7.9,9.2,10.3,11.9,13.4,15.0],
+  mark:{i:15,label:"2015: 4.5%"},mark2:{i:24,label:"15%"},
+  ins:"Solar and wind <b>tripled</b> in under 10 years, from <b>4.5%</b> in 2015 to <b>15%</b> in 2024.",src:"Source: Ember & Energy Institute via Our World in Data"},
+ {tag:"Climate · Emissions",title:"Global CO₂ emissions, billion tonnes",unit:"Gt",dec:1,col:"#F28B6B",glow:"rgba(242,139,107,.4)",min:20,max:40,ticks:[20,25,30,35,40],
+  d:[25.5,25.7,26.3,27.7,28.6,29.6,30.6,31.5,32.0,31.5,33.3,34.5,35.0,35.3,35.5,35.4,35.4,36.0,36.7,37.1,35.2,36.9,37.5,38.1,38.6],
+  mark:{i:20,label:"2020 dip"},
+  ins:"Emissions are up <b>51%</b> since 2000. The 2020 dip shows they <b>can fall fast</b>, but they rebounded within a year.",src:"Source: Global Carbon Budget via Our World in Data"}];
+const X0=44,X1=505,Y0=18,Y1=218,W=X1-X0,H=Y1-Y0;
+const el=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e};
+const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2, clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+const $v=document.getElementById("vzVal"),$y=document.getElementById("vzYear"),$u=document.getElementById("vzUnit"),$i=document.getElementById("vzIns"),$t=document.getElementById("vzTitle"),$g=document.getElementById("vzTag"),$s=document.getElementById("vzSrc"),viz=document.getElementById("viz");
+const steps=document.querySelectorAll(".vz-steps span"),navs=document.querySelectorAll("#vzNav button");
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+let cur=0,t0=0,raf,scene;const DUR=10000;
+function build(k){
+  svg.innerHTML="";const st=S[k];const FS=11*Math.min(1.7,Math.max(1,520/Math.max(260,svg.clientWidth||520)));const sx=i=>X0+W*i/24,sy=v=>Y1-H*(v-st.min)/(st.max-st.min);
+  const defs=el("defs",{});const lg=el("linearGradient",{id:"ag",x1:0,y1:0,x2:0,y2:1},defs);el("stop",{offset:"0%","stop-color":st.col,"stop-opacity":.35},lg);el("stop",{offset:"100%","stop-color":st.col,"stop-opacity":0},lg);
+  const cp=el("clipPath",{id:"cp"},defs);const clipR=el("rect",{x:X0-10,y:0,width:0,height:250},cp);
+  const axes=el("g",{opacity:0});
+  st.ticks.forEach(v=>{el("line",{x1:X0,x2:X1,y1:sy(v),y2:sy(v),stroke:"rgba(255,255,255,.08)"},axes);el("text",{x:X0-8,y:sy(v)+4,"text-anchor":"end",fill:"rgba(255,255,255,.45)","font-size":FS,"font-family":"Inter"},axes).textContent=v});
+  [0,6,12,18,24].forEach(i=>{el("text",{x:sx(i),y:Y1+20,"text-anchor":"middle",fill:"rgba(255,255,255,.45)","font-size":FS,"font-family":"Inter"},axes).textContent=Y[i]});
+  let ref=null;if(st.ref){ref=el("g",{opacity:0});el("line",{x1:X0,x2:X1,y1:sy(st.ref.v),y2:sy(st.ref.v),stroke:"#fff","stroke-dasharray":"5 5","stroke-opacity":.6},ref);el("text",{x:X0+6,y:sy(st.ref.v)-7,"text-anchor":"start",fill:"rgba(255,255,255,.8)","font-size":FS*1.05,"font-family":"Inter","font-weight":600},ref).textContent=st.ref.label}
+  const pts=st.d.map((v,i)=>[sx(i),sy(v)]);
+  const dline="M"+pts.map(p=>p.join(",")).join(" L");
+  const area=el("path",{d:dline+` L${X1},${Y1} L${X0},${Y1} Z`,fill:"url(#ag)","clip-path":"url(#cp)"});
+  const line=el("path",{d:dline,fill:"none",stroke:st.col,"stroke-width":3.2,"stroke-linejoin":"round","stroke-linecap":"round","clip-path":"url(#cp)"});
+  const dots=pts.map((p,i)=>{const r={x:X0+Math.random()*W,y:Y0+Math.random()*H};const c=el("circle",{cx:r.x,cy:r.y,r:4.2,fill:"#fff",opacity:0});return{c,r,p,ph:Math.random()*6.28}});
+  const head=el("circle",{r:7,fill:st.col,stroke:"#fff","stroke-width":2.5,opacity:0});
+  const halo=el("circle",{r:14,fill:st.col,opacity:0});
+  const marks=[st.mark,st.mark2].filter(Boolean).map(m=>{const g=el("g",{opacity:0});const[x,y]=pts[m.i];
+    el("circle",{cx:x,cy:y,r:6,fill:"#fff",stroke:st.col,"stroke-width":3},g);
+    const above=y>Y0+40,ty=above?y-16:y+24,anchor=x>X1-60?"end":x<X0+60?"start":"middle";
+    const tx=el("text",{x:x,y:ty,"text-anchor":anchor,fill:"#fff","font-size":FS*1.15,"font-weight":700,"font-family":"Inter"},g);tx.textContent=m.label;return g});
+  $t.textContent=st.title;$g.textContent=st.tag;$u.textContent=st.unit;$s.textContent=st.src;viz.style.setProperty("--vc",st.glow);$i.innerHTML=st.ins;
+  navs.forEach((n,i)=>n.classList.toggle("on",i===k));
+  return{st,axes,ref,area,line,dots,head,halo,marks,clipR,pts};
+}
+function frame(now){
+  const t=now-t0,sc=scene,st=sc.st;
+  // phase 1: raw scattered dots (0-1.4s)
+  const p1=clamp(t/900),p2=ease(clamp((t-1400)/1500)),p3=clamp((t-3000)/2600),p4=clamp((t-5800)/600),out=clamp((t-9300)/600);
+  sc.dots.forEach((d,i)=>{const jx=Math.sin(now/600+d.ph)*3*(1-p2),jy=Math.cos(now/700+d.ph)*3*(1-p2);
+    const x=d.r.x+(d.p[0]-d.r.x)*p2+jx,y=d.r.y+(d.p[1]-d.r.y)*p2+jy;d.c.setAttribute("cx",x);d.c.setAttribute("cy",y);
+    const shown=i/24<=p3;d.c.setAttribute("opacity",(p1*(p3>0?(shown?.95:.45):.85))*(1-out));d.c.setAttribute("r",p3>0&&shown?3.2:4.2);
+    if(p3>0)d.c.setAttribute("fill",shown?st.col:"#fff")});
+  sc.axes.setAttribute("opacity",p2*(1-out));
+  const w=p3*(X1-X0+20);sc.clipR.setAttribute("width",w);
+  const idx=Math.min(24,Math.floor(p3*24.999)),fr=p3*24-Math.floor(p3*24);
+  if(p3>0){const a=sc.pts[idx],b=sc.pts[Math.min(24,idx+1)];const hx=a[0]+(b[0]-a[0])*(idx<24?fr:0),hy=a[1]+(b[1]-a[1])*(idx<24?fr:0);
+    sc.head.setAttribute("cx",hx);sc.head.setAttribute("cy",hy);sc.halo.setAttribute("cx",hx);sc.halo.setAttribute("cy",hy);
+    sc.head.setAttribute("opacity",(1-out));sc.halo.setAttribute("opacity",(.25+.15*Math.sin(now/200))*(1-out));
+    const v=st.d[idx]+(st.d[Math.min(24,idx+1)]-st.d[idx])*(idx<24?fr:0);$v.textContent=v.toFixed(st.dec);$y.textContent=Y[idx];}
+  else{$v.textContent="···";$y.textContent="2000–2024";sc.head.setAttribute("opacity",0);sc.halo.setAttribute("opacity",0)}
+  if(sc.ref)sc.ref.setAttribute("opacity",clamp((t-2600)/600)*(1-out));
+  sc.marks.forEach((m,i)=>m.setAttribute("opacity",clamp((t-5800-i*400)/500)*(1-out)));
+  $i.classList.toggle("on",p4>0&&out<1);
+  const phase=t<1400?0:t<5800?1:2;steps.forEach((s,i)=>s.classList.toggle("on",i===phase));
+  svg.style.opacity=1-out*.6;
+  if(t>=DUR){go((cur+1)%S.length);return}
+  raf=requestAnimationFrame(frame);
+}
+function go(k){cancelAnimationFrame(raf);cur=k;scene=build(k);t0=performance.now();
+  if(reduce){t0-=8000;frame(performance.now());cancelAnimationFrame(raf);return}
+  raf=requestAnimationFrame(frame)}
+navs.forEach((n,i)=>n.onclick=()=>go(i));
+// pause when off-screen (saves battery on phones)
+let started=false,paused=0;new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){if(!started){started=true;setTimeout(()=>go(0),500)}else if(!reduce&&paused){t0=performance.now()-paused;paused=0;raf=requestAnimationFrame(frame)}}else if(started&&!reduce){paused=performance.now()-t0;cancelAnimationFrame(raf)}}),{threshold:.2}).observe(viz);
+})();
 // spotlight on service cards
 $$(".svc").forEach(c=>c.addEventListener("mousemove",e=>{const r=c.getBoundingClientRect();c.style.setProperty("--mx",(e.clientX-r.left)+"px");c.style.setProperty("--my",(e.clientY-r.top)+"px")}));
 // work filters
