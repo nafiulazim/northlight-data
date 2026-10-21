@@ -281,8 +281,8 @@ footer a:hover{color:var(--ink)}
     </div>
     <div class="load" style="animation-delay:.35s;position:relative">
       <div class="viz" id="viz">
-        <div class="vz-top"><span class="vz-tag" id="vzTag">NGO · Child health</span><span class="vz-live"><span class="dot"></span>Real data</span></div>
-        <div class="vz-title" id="vzTitle">Child deaths before age 5 · Ethiopia</div>
+        <div class="vz-top"><span class="vz-tag" id="vzTag">NGO · Programme reach</span><span class="vz-live"><span class="dot"></span>Live preview</span></div>
+        <div class="vz-title" id="vzTitle">People reached by the programme (cumulative)</div>
         <div class="vz-big"><b id="vzVal">–</b><span id="vzUnit"></span><em id="vzYear">2000</em></div>
         <svg id="vz" viewBox="0 0 520 250" preserveAspectRatio="xMidYMid meet" aria-label="Animated chart"></svg>
         <div class="vz-ins" id="vzIns">&nbsp;</div>
@@ -411,20 +411,20 @@ new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.cl
 // animated hero chart: raw data -> structure -> insight
 (function(){
 const NS="http://www.w3.org/2000/svg",svg=document.getElementById("vz");if(!svg)return;
-const Y=[...Array(25)].map((_,i)=>2000+i);
+const Y=[...Array(25)].map((_,i)=>"Month "+(i+1));const XT=["M1","M7","M13","M19","M25"];
 const S=[
- {tag:"NGO · Child health",title:"Child deaths before age 5 · Ethiopia",unit:"per 1,000 births",dec:1,col:"#7FD1BC",glow:"rgba(62,158,142,.4)",min:0,max:160,ticks:[0,50,100,150],
-  d:[146.7,140.4,134.1,127.7,121.4,115.0,108.8,102.9,97.4,92.3,87.6,83.2,79.1,75.3,71.6,68.2,64.9,61.7,58.9,56.4,54.1,52.0,50.0,48.2,46.5],
-  ref:{v:25,label:"SDG target: 25"},mark:{i:24,label:"46.5"},
-  ins:"Child deaths fell <b>68%</b> since 2000, but are still nearly <b>2×</b> the SDG target of 25.",src:"Source: UN IGME via Gapminder"},
- {tag:"Sustainability · Energy",title:"Solar + wind share of world electricity",unit:"%",dec:1,col:"#F2B84B",glow:"rgba(242,184,75,.4)",min:0,max:16,ticks:[0,5,10,15],
-  d:[0.2,0.3,0.3,0.4,0.5,0.6,0.7,0.9,1.2,1.5,1.8,2.3,2.8,3.3,3.8,4.5,5.2,6.2,7.0,7.9,9.2,10.3,11.9,13.4,15.0],
-  mark:{i:15,label:"2015: 4.5%"},mark2:{i:24,label:"15%"},
-  ins:"Solar and wind <b>tripled</b> in under 10 years, from <b>4.5%</b> in 2015 to <b>15%</b> in 2024.",src:"Source: Ember & Energy Institute via Our World in Data"},
- {tag:"Climate · Emissions",title:"Global CO₂ emissions, billion tonnes",unit:"Gt",dec:1,col:"#F28B6B",glow:"rgba(242,139,107,.4)",min:20,max:40,ticks:[20,25,30,35,40],
-  d:[25.5,25.7,26.3,27.7,28.6,29.6,30.6,31.5,32.0,31.5,33.3,34.5,35.0,35.3,35.5,35.4,35.4,36.0,36.7,37.1,35.2,36.9,37.5,38.1,38.6],
-  mark:{i:20,label:"2020 dip"},
-  ins:"Emissions are up <b>51%</b> since 2000. The 2020 dip shows they <b>can fall fast</b>, but they rebounded within a year.",src:"Source: Global Carbon Budget via Our World in Data"}];
+ {tag:"NGO · Programme reach",title:"People reached by the programme (cumulative)",unit:"thousand people",dec:1,col:"#7FD1BC",glow:"rgba(62,158,142,.4)",min:0,max:60,ticks:[0,20,40,60],
+  d:[0.8,1.6,2.5,3.7,5.2,7.0,9.2,11.8,14.8,18.1,21.7,25.4,29.1,32.7,36.0,39.0,41.6,43.8,45.6,47.1,48.3,49.2,50.0,50.5,51.0],
+  ref:{v:50,label:"Target: 50,000"},mark:{i:22,label:"Target hit ✓",dx:-6,dy:34,anchor:"end"},
+  ins:"The programme reached its <b>50,000-person target</b> in month 23, <b>ahead of plan</b>, and is still growing.",src:"Example data for illustration"},
+ {tag:"Development · Clean water",title:"Households with access to clean water",unit:"%",dec:1,col:"#6FB7F2",glow:"rgba(111,183,242,.4)",min:20,max:90,ticks:[20,40,60,80],
+  d:[32.0,37.1,41.2,45.7,49.4,51.6,54.4,58.7,60.0,62.1,65.5,66.2,68.5,69.2,70.8,71.0,73.0,74.4,74.5,75.7,76.2,75.6,77.6,77.7,78.0],
+  ref:{v:75,label:"Goal: 75%"},mark:{i:0,label:"32%"},mark2:{i:24,label:"78%"},
+  ins:"Clean water access <b>more than doubled</b>, from 32% to 78%, passing the <b>75% goal</b> in month 20.",src:"Example data for illustration"},
+ {tag:"Small business · Sales",title:"Monthly revenue",unit:"$ thousand",dec:1,col:"#F2B84B",glow:"rgba(242,184,75,.4)",min:30,max:70,ticks:[30,40,50,60,70],
+  d:[38.9,40.4,42.5,44.8,46.8,48.0,48.4,47.8,46.6,45.2,44.1,43.8,44.5,46.1,51.4,57.1,59.6,61.1,61.5,60.7,59.1,57.2,55.8,55.3,55.6],
+  mark:{i:14,label:"Campaign launched"},
+  ins:"Revenue grew <b>43%</b> in two years. The <b>loyalty campaign</b> in month 15 drove the biggest jump.",src:"Example data for illustration"}];
 const X0=44,X1=505,Y0=18,Y1=218,W=X1-X0,H=Y1-Y0;
 const el=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e};
 const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2, clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
@@ -438,7 +438,7 @@ function build(k){
   const cp=el("clipPath",{id:"cp"},defs);const clipR=el("rect",{x:X0-10,y:0,width:0,height:250},cp);
   const axes=el("g",{opacity:0});
   st.ticks.forEach(v=>{el("line",{x1:X0,x2:X1,y1:sy(v),y2:sy(v),stroke:"rgba(255,255,255,.08)"},axes);el("text",{x:X0-8,y:sy(v)+4,"text-anchor":"end",fill:"rgba(255,255,255,.45)","font-size":FS,"font-family":"Inter"},axes).textContent=v});
-  [0,6,12,18,24].forEach(i=>{el("text",{x:sx(i),y:Y1+20,"text-anchor":"middle",fill:"rgba(255,255,255,.45)","font-size":FS,"font-family":"Inter"},axes).textContent=Y[i]});
+  [0,6,12,18,24].forEach((i,j)=>{el("text",{x:sx(i),y:Y1+20,"text-anchor":"middle",fill:"rgba(255,255,255,.45)","font-size":FS,"font-family":"Inter"},axes).textContent=XT[j]});
   let ref=null;if(st.ref){ref=el("g",{opacity:0});el("line",{x1:X0,x2:X1,y1:sy(st.ref.v),y2:sy(st.ref.v),stroke:"#fff","stroke-dasharray":"5 5","stroke-opacity":.6},ref);el("text",{x:X0+6,y:sy(st.ref.v)-7,"text-anchor":"start",fill:"rgba(255,255,255,.8)","font-size":FS*1.05,"font-family":"Inter","font-weight":600},ref).textContent=st.ref.label}
   const pts=st.d.map((v,i)=>[sx(i),sy(v)]);
   const dline="M"+pts.map(p=>p.join(",")).join(" L");
@@ -450,7 +450,7 @@ function build(k){
   const marks=[st.mark,st.mark2].filter(Boolean).map(m=>{const g=el("g",{opacity:0});const[x,y]=pts[m.i];
     el("circle",{cx:x,cy:y,r:6,fill:"#fff",stroke:st.col,"stroke-width":3},g);
     const above=y>Y0+40,ty=above?y-16:y+24,anchor=x>X1-60?"end":x<X0+60?"start":"middle";
-    const tx=el("text",{x:x,y:ty,"text-anchor":anchor,fill:"#fff","font-size":FS*1.15,"font-weight":700,"font-family":"Inter"},g);tx.textContent=m.label;return g});
+    const tx=el("text",{x:x+(m.dx||0),y:m.dy!=null?y+m.dy:ty,"text-anchor":m.anchor||anchor,fill:"#fff","font-size":FS*1.15,"font-weight":700,"font-family":"Inter"},g);tx.textContent=m.label;return g});
   $t.textContent=st.title;$g.textContent=st.tag;$u.textContent=st.unit;$s.textContent=st.src;viz.style.setProperty("--vc",st.glow);$i.innerHTML=st.ins;
   navs.forEach((n,i)=>n.classList.toggle("on",i===k));
   return{st,axes,ref,area,line,dots,head,halo,marks,clipR,pts};
@@ -470,7 +470,7 @@ function frame(now){
     sc.head.setAttribute("cx",hx);sc.head.setAttribute("cy",hy);sc.halo.setAttribute("cx",hx);sc.halo.setAttribute("cy",hy);
     sc.head.setAttribute("opacity",(1-out));sc.halo.setAttribute("opacity",(.25+.15*Math.sin(now/200))*(1-out));
     const v=st.d[idx]+(st.d[Math.min(24,idx+1)]-st.d[idx])*(idx<24?fr:0);$v.textContent=v.toFixed(st.dec);$y.textContent=Y[idx];}
-  else{$v.textContent="···";$y.textContent="2000–2024";sc.head.setAttribute("opacity",0);sc.halo.setAttribute("opacity",0)}
+  else{$v.textContent="···";$y.textContent="Months 1–25";sc.head.setAttribute("opacity",0);sc.halo.setAttribute("opacity",0)}
   if(sc.ref)sc.ref.setAttribute("opacity",clamp((t-2600)/600)*(1-out));
   sc.marks.forEach((m,i)=>m.setAttribute("opacity",clamp((t-5800-i*400)/500)*(1-out)));
   $i.classList.toggle("on",p4>0&&out<1);
