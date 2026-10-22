@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Sales Assistant – Small Business – Northlight Data</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--bg:#F4F2EC;--card:#fff;--ink:#16213A;--muted:#5D667A;--line:#E7E2D8;--navy:#1B2B4B;--gold:#F2B84B;--teal:#3E9E8E}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif}
+.top{background:var(--navy);color:#fff;padding:18px 0}
+.wrap{max-width:1200px;margin:0 auto;padding:0 18px}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.top a{color:#C9D2E3;text-decoration:none;font-size:.9rem}
+h1{font-family:Fraunces,Georgia,serif;font-weight:600;margin:0;font-size:clamp(1.4rem,3vw,2rem)}
+.sub{color:#C9D2E3;font-size:.92rem;margin-top:4px}
+.bar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:20px 0 14px}
+select{padding:10px 14px;border:1.5px solid var(--line);border-radius:12px;font:inherit;background:#fff;min-width:220px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.kpi span{font-size:.78rem;color:var(--muted);display:block}
+.kpi b{font-size:1.8rem;font-family:Fraunces,Georgia,serif;font-weight:600}
+.kpi small{font-size:.8rem;font-weight:600}
+.up{color:var(--teal)}.down{color:#C0533A}
+.grid{display:grid;grid-template-columns:1.5fr 1fr;gap:14px;margin-top:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.card h2{font-size:1rem;margin:0 0 4px}.card p{margin:0 0 12px;color:var(--muted);font-size:.85rem}
+.ch{position:relative;height:320px}
+.insight{background:var(--navy);color:#fff;border-radius:16px;padding:18px;margin-top:14px;font-size:.95rem}
+.insight b{color:var(--gold)}
+footer{color:var(--muted);font-size:.8rem;padding:22px 0 40px}
+footer a{color:var(--muted)}
+@media(max-width:900px){.kpis{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}}
+.seg{display:inline-flex;background:#fff;border:1.5px solid var(--line);border-radius:12px;overflow:hidden}
+.seg button{border:0;background:none;padding:10px 14px;font:inherit;cursor:pointer;color:var(--muted)}
+.seg button.on{background:var(--navy);color:#fff}
+.demo{background:#FFF6E3;border:1px solid #F2D9A0;color:#7A5A12;border-radius:12px;padding:10px 14px;font-size:.85rem;margin-top:16px}
+.heat{font-size:.7rem;color:var(--muted)}
+.hc{border-radius:4px;height:26px;display:flex;align-items:center;justify-content:center}
+table{width:100%;border-collapse:collapse;font-size:.88rem}th,td{text-align:left;padding:9px 6px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:600;font-size:.78rem}td.r,th.r{text-align:right}
+
+/* mobile fixes */
+.grid>*,.kpis>*{min-width:0}
+.ch canvas{max-width:100%}
+@media(max-width:900px){.grid{grid-template-columns:1fr!important}}
+@media(max-width:700px){
+  .wrap{padding:0 14px}
+  .top{padding:14px 0}.top .wrap{flex-direction:column;align-items:flex-start;gap:6px}
+  .bar{gap:8px}.bar select{width:100%;min-width:0}.bar>label,.bar>b{width:100%;margin-top:4px}
+  .seg{width:100%}.seg button{flex:1;padding:10px 6px}
+  .kpis{gap:10px}.kpi{padding:12px}.kpi b{font-size:1.35rem}.kpi span{font-size:.72rem}
+  .card{padding:14px}.ch{height:280px!important}
+  table{display:block;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
+  td b{white-space:normal}
+  .heat{overflow-x:auto}.heat>div{min-width:480px}
+  .insight{font-size:.9rem}
+  .demo{font-size:.8rem}
+}
+.chatbox{display:flex;flex-direction:column;height:560px}
+.msgs{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:4px 2px 10px}
+.m{padding:11px 14px;border-radius:14px;max-width:88%;white-space:pre-wrap;font-size:.94rem;line-height:1.5}
+.m.a{background:#F1EDE5;align-self:flex-start}.m.u{background:var(--navy);color:#fff;align-self:flex-end}
+.m.t{color:var(--muted);font-style:italic}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 12px}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:7px 12px;font:inherit;font-size:.84rem;cursor:pointer;color:var(--ink);transition:all .2s}
+.chip:hover{border-color:var(--teal);background:#EAF5F2}
+.inp{display:flex;gap:8px}.inp input{flex:1;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;font:inherit}
+.btnp{background:var(--navy);color:#fff;border:0;border-radius:12px;padding:12px 18px;font:inherit;font-weight:600;cursor:pointer}
+.btnp:disabled{opacity:.6;cursor:wait}
+.mini{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rowi{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);font-size:.88rem;gap:10px}
+.rag{display:inline-block;padding:2px 9px;border-radius:999px;font-size:.7rem;font-weight:700;white-space:nowrap}.g{background:#DDF1EC;color:#2B7A6C}.am{background:#FCEFD2;color:#946A12}
+textarea{width:100%;min-height:260px;padding:14px;border:1.5px solid var(--line);border-radius:12px;font:inherit;font-size:.9rem;resize:vertical;background:#FFFDF9}
+.tcard{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff}
+.tcard h3{font-size:.98rem;margin:0 0 4px}.tcard q{color:var(--muted);font-size:.88rem;display:block;margin-top:6px}
+.tgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.recs li{margin-bottom:8px}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid #fff;border-right-color:transparent;border-radius:50%;animation:sp .8s linear infinite;vertical-align:-2px;margin-right:6px}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media(max-width:700px){.tgrid{grid-template-columns:1fr}.chatbox{height:500px}}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap">
+  <div><h1>AI Sales Assistant · Small Business</h1><div class="sub">Ask your sales data anything, from best-sellers to staffing, and get instant answers with practical advice</div></div>
+  <a href="/">← Northlight Data</a>
+</div></div>
+<div class="wrap">
+  <div class="demo">ℹ️ <b>Live AI demo:</b> answers come from a real AI model reading the fictional <b>Harbour Coffee Co.</b> sales data (the same data as our <a href="/work/business.html">small business dashboard</a>). Please don't enter personal information.</div>
+  <div class="grid" style="grid-template-columns:1fr 1.35fr;margin-top:16px">
+    <div class="card">
+      <h2>Data the assistant can see</h2><p>Harbour Coffee Co. · 3 branches · Nov 2024 to Oct 2026</p>
+      <div class="mini">
+        <div class="kpi"><span>Revenue (last 12 months)</span><b>$909.6k</b></div>
+        <div class="kpi"><span>Growth vs previous year</span><b>+42%</b></div>
+        <div class="kpi"><span>Gross margin</span><b>59.9%</b></div>
+        <div class="kpi"><span>Average order value</span><b>$4.87</b></div>
+      </div>
+      <div style="margin-top:12px">
+        <div class="rowi"><span>Coffee</span><span>$370.8k · 72% margin</span></div>
+        <div class="rowi"><span>Sandwiches</span><span>$170.6k · 48% margin</span></div>
+        <div class="rowi"><span>Retail beans</span><span>$158.6k · 40% margin</span></div>
+        <div class="rowi"><span>Pastries</span><span>$115.3k · 55% margin</span></div>
+        <div class="rowi"><span>Tea & other drinks</span><span>$94.3k · 75% margin</span></div>
+      </div>
+      <p style="margin-top:14px;font-size:.82rem">Also available: monthly revenue by branch, orders, branch comparison and busiest hours for each branch.</p>
+    </div>
+    <div class="card chatbox">
+      <h2>💬 Ask a question</h2>
+      <div class="chips" id="chips">
+        <button class="chip">Which branch is growing fastest?</button>
+        <button class="chip">When should I add more staff at Tech Park?</button>
+        <button class="chip">Which product category earns the best margin?</button>
+        <button class="chip">How did December compare with last year?</button>
+        <button class="chip">Give me 3 ideas to increase profit</button>
+      </div>
+      <div class="msgs" id="msgs"><div class="m a">Hi! I've read Harbour Coffee's sales data. Ask me about revenue, branches, products, margins or busy hours, or tap a question above.</div></div>
+      <div class="inp"><input id="q" maxlength="400" placeholder="e.g. What sells best at Old Town?"><button class="btnp" id="send">Ask</button></div>
+    </div>
+  </div>
+  <div class="insight">💡 <b>What this means for your business:</b> we can connect an AI assistant like this to <b>your own</b> sales system or spreadsheets, so you get answers and ideas in seconds, without digging through reports.</div>
+  <footer>Demo built by <a href="/">Northlight Data</a>. Fictional data. AI answers can contain mistakes, so always check key figures.</footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);let msgs=[];
+function add(role,text,cls){const d=document.createElement("div");d.className="m "+(cls||(role==="user"?"u":"a"));d.textContent=text;$("msgs").appendChild(d);$("msgs").scrollTop=$("msgs").scrollHeight;return d}
+async function ask(text){text=(text||"").trim();if(!text)return;$("q").value="";add("user",text);msgs.push({role:"user",content:text});
+  const b=$("send");b.disabled=true;const t=add("assistant","Thinking…","t");
+  try{const r=await fetch("/api/ai",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({mode:"biz",messages:msgs})});
+    const d=await r.json();t.remove();const reply=r.ok?d.reply:(d.error||"Something went wrong.");add("assistant",reply);if(r.ok)msgs.push({role:"assistant",content:reply});}
+  catch(e){t.remove();add("assistant","Couldn't reach the AI. Please try again.")}
+  b.disabled=false;}
+$("send").onclick=()=>ask($("q").value);$("q").addEventListener("keydown",e=>{if(e.key==="Enter")ask($("q").value)});
+document.querySelectorAll("#chips .chip").forEach(c=>c.onclick=()=>ask(c.textContent));
+</script>
+</body></html>
