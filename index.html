@@ -252,6 +252,21 @@ footer a:hover{color:var(--ink)}
 .vz-nav button.on{width:26px;background:var(--gold)}
 .vz-src{font-size:.72rem;color:var(--muted);margin-top:10px;text-align:right}
 @media(max-width:560px){.viz{padding:18px 16px 14px;border-radius:20px}.vz-ins{font-size:.88rem}.vz-steps{font-size:.66rem}}
+
+/* AI band */
+.ai-band{margin-top:28px;background:linear-gradient(135deg,#1B2B4B,#24406B);color:#fff;border-radius:24px;padding:32px;position:relative;overflow:hidden}
+.ai-band:before{content:"";position:absolute;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(242,184,75,.28),transparent 65%);top:-160px;right:-120px}
+.ai-head{position:relative;max-width:620px}
+.ai-badge{display:inline-block;background:var(--gold);color:var(--navy);font-size:.7rem;font-weight:700;letter-spacing:.1em;padding:4px 11px;border-radius:999px}
+.ai-head h3{font-size:1.7rem;margin:12px 0 6px}.ai-head p{color:rgba(255,255,255,.75);margin:0}
+.ai-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px;position:relative}
+@media(max-width:940px){.ai-grid{grid-template-columns:1fr 1fr}}@media(max-width:560px){.ai-grid{grid-template-columns:1fr}.ai-band{padding:22px}}
+.ai-item{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:18px;transition:transform .3s,background .3s}
+.ai-item:hover{transform:translateY(-4px);background:rgba(255,255,255,.11)}
+.ai-item b{display:block;margin-bottom:6px}.ai-item span{color:rgba(255,255,255,.72);font-size:.92rem}
+.ai-cta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:24px;position:relative}
+.ai-cta .btn.p{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+.ai-cta small{color:rgba(255,255,255,.6)}
 </style>
 </head>
 <body>
@@ -269,7 +284,7 @@ footer a:hover{color:var(--ink)}
   <div class="grid-bg"></div><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
   <div class="wrap hero-in">
     <div>
-      <div class="pill load" style="animation-delay:.05s"><b>NEW</b> 6 interactive dashboards to explore <span class="dot"></span></div>
+      <div class="pill load" style="animation-delay:.05s"><b>NEW</b> Live AI demos + 6 dashboards <span class="dot"></span></div>
       <h1 class="load" style="animation-delay:.15s">Turn messy data into <span class="hl">clear decisions.</span></h1>
       <p class="lead load" style="animation-delay:.3s">We design dashboards and data reports that busy teams actually use: clean, accurate and easy to read at a glance. From spreadsheets to live, interactive insights.</p>
       <div class="btns load" style="animation-delay:.45s"><a class="btn p" href="#contact">Discuss your project <span>→</span></a><a class="btn s" href="#work">Explore our work</a></div>
@@ -304,7 +319,7 @@ footer a:hover{color:var(--ink)}
 
 <!-- SERVICES -->
 <section id="services"><div class="wrap">
-  <div class="head r"><div class="eyebrow">Services</div><h2>What we build for you</h2><p>Every project starts with one question: what decision does this data need to support? Then we build exactly that, nothing more and nothing less.</p></div>
+  <div class="head r"><div class="eyebrow">Services</div><h2>What we build for you</h2><p>Every project starts with one question: what decision does this data need to support? Then we build exactly that: dashboards, reporting and practical AI.</p></div>
   <div class="svcs">
     <div class="svc r"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 16v-4M12 16V8M16 16v-6"/></svg></div><h3>Interactive dashboards</h3><p>Power BI, Tableau, Looker Studio or web dashboards with filters, drill-downs and clear KPIs.</p></div>
     <div class="svc r"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M6 12h12M10 18h4"/></svg></div><h3>Data cleaning & structuring</h3><p>Messy spreadsheets and survey exports turned into tidy, reliable datasets ready for analysis.</p></div>
@@ -313,13 +328,25 @@ footer a:hover{color:var(--ink)}
     <div class="svc r"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></div><h3>M&E and KPI frameworks</h3><p>Indicator tracking and results dashboards for programmes, projects and donor reporting.</p></div>
     <div class="svc r"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 15l5-5 4 4 3-3 6 6"/></svg></div><h3>Infographics & data visuals</h3><p>Publication-ready charts, one-pagers and visual summaries for reports and presentations.</p></div>
   </div>
+  <div class="ai-band r">
+    <div class="ai-head"><span class="ai-badge">NEW · AI SERVICES</span><h3>Put AI to work on your data</h3><p>Practical, responsible AI that saves your team hours, built on your own data and tools.</p></div>
+    <div class="ai-grid">
+      <div class="ai-item"><b>💬 Ask-your-data assistants</b><span>Chat with your programme or sales data in plain language and get instant, sourced answers.</span></div>
+      <div class="ai-item"><b>🗂️ Survey & feedback analysis</b><span>Automatically code open-ended answers, complaints or reviews into themes and sentiment, in any language.</span></div>
+      <div class="ai-item"><b>📝 Automated report drafting</b><span>First drafts of donor reports, monthly summaries and insights written straight from your dashboard numbers.</span></div>
+      <div class="ai-item"><b>⚙️ Data cleaning & workflow automation</b><span>AI-assisted cleaning, categorising and routine tasks that remove hours of copy-paste every month.</span></div>
+    </div>
+    <div class="ai-cta"><a class="btn p" href="#work" data-jump="ai">Try our live AI demos <span>→</span></a><small>Human-reviewed outputs · your data stays private · AI used responsibly</small></div>
+  </div>
 </div></section>
 
 <!-- WORK -->
 <section id="work" class="work"><div class="wrap">
   <div class="head r"><div class="eyebrow">Our work</div><h2>Explore our live dashboards</h2><p>Real, interactive dashboards for development, sustainability and business audiences. Open any one and try the filters.</p></div>
-  <div class="filters r" id="filters"><button class="on" data-f="all">All</button><button data-f="ngo">NGO & development</button><button data-f="sus">Sustainability</button><button data-f="biz">Business</button></div>
+  <div class="filters r" id="filters"><button class="on" data-f="all">All</button><button data-f="ngo">NGO & development</button><button data-f="sus">Sustainability</button><button data-f="biz">Business</button><button data-f="ai">✨ AI demos</button></div>
   <div class="live-grid">
+    <a class="lv r" data-cat="ai" href="/work/ai-assistant.html"><div class="img"><img src="/work/ai-assistant-thumb.png" alt="AI programme assistant demo preview" loading="lazy"></div><div class="t"><span class="tag live">LIVE AI · ASK YOUR DATA</span><h3>AI Programme Assistant</h3><p>Ask questions about a programme's results in plain language ("Which district is behind?") and get instant answers from the data, plus donor-ready summaries.</p><span class="go">Try the AI demo <span>→</span></span></div></a>
+    <a class="lv r" data-cat="ai" href="/work/ai-feedback.html"><div class="img"><img src="/work/ai-feedback-thumb.png" alt="AI feedback analyser demo preview" loading="lazy"></div><div class="t"><span class="tag live">LIVE AI · FEEDBACK ANALYSIS</span><h3>AI Feedback Analyser</h3><p>Paste survey answers or customer reviews and get themes, sentiment, example quotes and recommended actions in seconds.</p><span class="go">Try the AI demo <span>→</span></span></div></a>
     <a class="lv r" data-cat="ngo" href="/work/health.html"><div class="img"><img src="/work/health-thumb.png" alt="Child Health and WASH Tracker preview" loading="lazy"></div><div class="t"><span class="tag live">LIVE · NGO / M&E</span><h3>Child Health & WASH Tracker</h3><p>Under-5 and newborn mortality against SDG targets, water and sanitation access, on-track status and a regional snapshot for 199 countries.</p><span class="go">Open dashboard <span>→</span></span></div></a>
     <a class="lv r" data-cat="ngo" href="/work/programme.html"><div class="img"><img src="/work/programme-thumb.png" alt="Programme M&E results dashboard preview" loading="lazy"></div><div class="t"><span class="tag demo">DEMO · PROGRAMME M&E</span><h3>Programme Results (M&E) Dashboard</h3><p>A donor-ready results framework: indicators vs targets with on-track status, reach by sex and age, budget burn and district comparison.</p><span class="go">Open dashboard <span>→</span></span></div></a>
     <a class="lv r" data-cat="ngo" href="/work/education.html"><div class="img"><img src="/work/education-thumb.png" alt="Education and Gender Equality Monitor preview" loading="lazy"></div><div class="t"><span class="tag live">LIVE · EDUCATION / GENDER</span><h3>Education & Gender Equality Monitor</h3><p>Primary completion for girls vs boys, gender parity, youth literacy and out-of-school children across 144 countries.</p><span class="go">Open dashboard <span>→</span></span></div></a>
@@ -327,7 +354,7 @@ footer a:hover{color:var(--ink)}
     <a class="lv r" data-cat="sus" href="/work/energy.html"><div class="img"><img src="/work/energy-thumb.png" alt="Global Energy Transition dashboard preview" loading="lazy"></div><div class="t"><span class="tag live">LIVE · SUSTAINABILITY</span><h3>Global Energy Transition</h3><p>How 138 countries generate electricity, from coal to solar, 2000–2024, with KPIs, rankings and auto-generated insights.</p><span class="go">Open dashboard <span>→</span></span></div></a>
     <a class="lv r" data-cat="sus" href="/work/co2.html"><div class="img"><img src="/work/co2-thumb.png" alt="CO2 Emissions Explorer preview" loading="lazy"></div><div class="t"><span class="tag live">LIVE · SUSTAINABILITY</span><h3>CO₂ Emissions Explorer</h3><p>Compare emissions by country, fuel source and per person, with side-by-side country comparison and a bubble chart of all nations.</p><span class="go">Open dashboard <span>→</span></span></div></a>
   </div>
-  <p class="note r">Energy, CO₂, health and education dashboards use public data (Our World in Data; UN IGME, WHO/UNICEF and UNESCO via Gapminder). The programme M&E and small-business dashboards use simulated data. Client work is kept confidential.</p>
+  <p class="note r">Energy, CO₂, health and education dashboards use public data (Our World in Data; UN IGME, WHO/UNICEF and UNESCO via Gapminder). The programme M&E, small-business and AI demos use fictional data. Client work is kept confidential.</p>
 </div></section>
 
 <!-- WHY -->
@@ -372,7 +399,7 @@ footer a:hover{color:var(--ink)}
       </div>
       <div class="field"><label for="o">Organisation (optional)</label><input id="o" name="organisation"></div>
       <div class="field"><label for="t">What do you need?</label>
-        <select id="t" name="service"><option>Dashboard</option><option>Data cleaning</option><option>Analysis & insights</option><option>Automated reporting</option><option>M&E / KPI framework</option><option>Infographics</option><option>Not sure yet</option></select></div>
+        <select id="t" name="service"><option>Dashboard</option><option>Data cleaning</option><option>Analysis & insights</option><option>Automated reporting</option><option>M&E / KPI framework</option><option>Infographics</option><option>AI solutions</option><option>Not sure yet</option></select></div>
       <div class="field"><label for="m">Tell us about your project</label><textarea id="m" name="message" required placeholder="What data do you have, and what would you like to see?"></textarea></div>
       <button type="submit">Send enquiry <span>→</span></button>
       <small>We usually reply within 1–2 working days.</small>
@@ -488,6 +515,7 @@ let started=false,paused=0;new IntersectionObserver(es=>es.forEach(e=>{if(e.isIn
 })();
 // spotlight on service cards
 $$(".svc").forEach(c=>c.addEventListener("mousemove",e=>{const r=c.getBoundingClientRect();c.style.setProperty("--mx",(e.clientX-r.left)+"px");c.style.setProperty("--my",(e.clientY-r.top)+"px")}));
+document.querySelectorAll("[data-jump]").forEach(a=>a.addEventListener("click",()=>{const b=document.querySelector('#filters button[data-f="'+a.dataset.jump+'"]');b&&b.click()}));
 // work filters
 $$("#filters button").forEach(b=>b.onclick=()=>{$$("#filters button").forEach(x=>x.classList.remove("on"));b.classList.add("on");
   $$(".lv").forEach(c=>c.classList.toggle("hide",b.dataset.f!=="all"&&c.dataset.cat!==b.dataset.f))});
