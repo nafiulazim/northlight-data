@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gym Membership Dashboard – Northlight Data</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--bg:#F4F2EC;--card:#fff;--ink:#16213A;--muted:#5D667A;--line:#E7E2D8;--navy:#1B2B4B;--gold:#F2B84B;--teal:#3E9E8E}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif}
+.top{background:var(--navy);color:#fff;padding:18px 0}
+.wrap{max-width:1200px;margin:0 auto;padding:0 18px}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.top a{color:#C9D2E3;text-decoration:none;font-size:.9rem}
+h1{font-family:Fraunces,Georgia,serif;font-weight:600;margin:0;font-size:clamp(1.4rem,3vw,2rem)}
+.sub{color:#C9D2E3;font-size:.92rem;margin-top:4px}
+.bar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:20px 0 14px}
+select{padding:10px 14px;border:1.5px solid var(--line);border-radius:12px;font:inherit;background:#fff;min-width:220px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.kpi span{font-size:.78rem;color:var(--muted);display:block}
+.kpi b{font-size:1.8rem;font-family:Fraunces,Georgia,serif;font-weight:600}
+.kpi small{font-size:.8rem;font-weight:600}
+.up{color:var(--teal)}.down{color:#C0533A}
+.grid{display:grid;grid-template-columns:1.5fr 1fr;gap:14px;margin-top:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.card h2{font-size:1rem;margin:0 0 4px}.card p{margin:0 0 12px;color:var(--muted);font-size:.85rem}
+.ch{position:relative;height:320px}
+.insight{background:var(--navy);color:#fff;border-radius:16px;padding:18px;margin-top:14px;font-size:.95rem}
+.insight b{color:var(--gold)}
+footer{color:var(--muted);font-size:.8rem;padding:22px 0 40px}
+footer a{color:var(--muted)}
+@media(max-width:900px){.kpis{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}}
+.seg{display:inline-flex;background:#fff;border:1.5px solid var(--line);border-radius:12px;overflow:hidden}
+.seg button{border:0;background:none;padding:10px 14px;font:inherit;cursor:pointer;color:var(--muted)}
+.seg button.on{background:var(--navy);color:#fff}
+.demo{background:#FFF6E3;border:1px solid #F2D9A0;color:#7A5A12;border-radius:12px;padding:10px 14px;font-size:.85rem;margin-top:16px}
+.heat{font-size:.7rem;color:var(--muted)}
+.hc{border-radius:4px;height:26px;display:flex;align-items:center;justify-content:center}
+table{width:100%;border-collapse:collapse;font-size:.88rem}th,td{text-align:left;padding:9px 6px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:600;font-size:.78rem}td.r,th.r{text-align:right}
+
+/* mobile fixes */
+.grid>*,.kpis>*{min-width:0}
+.ch canvas{max-width:100%}
+@media(max-width:900px){.grid{grid-template-columns:1fr!important}}
+@media(max-width:700px){
+  .wrap{padding:0 14px}
+  .top{padding:14px 0}.top .wrap{flex-direction:column;align-items:flex-start;gap:6px}
+  .bar{gap:8px}.bar select{width:100%;min-width:0}.bar>label,.bar>b{width:100%;margin-top:4px}
+  .seg{width:100%}.seg button{flex:1;padding:10px 6px}
+  .kpis{gap:10px}.kpi{padding:12px}.kpi b{font-size:1.35rem}.kpi span{font-size:.72rem}
+  .card{padding:14px}.ch{height:280px!important}
+  table{display:block;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
+  td b{white-space:normal}
+  .heat{overflow-x:auto}.heat>div{min-width:480px}
+  .insight{font-size:.9rem}
+  .demo{font-size:.8rem}
+}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap">
+  <div><h1>Pulse Fitness · Membership &amp; Classes</h1><div class="sub">Members, churn, revenue and class attendance across two studios</div></div>
+  <a href="/">← Northlight Data</a>
+</div></div>
+<div class="wrap">
+  <div class="demo">ℹ️ <b>Demo dashboard:</b> Pulse Fitness is a fictional gym and all figures are simulated, to show what a membership business dashboard can look like.</div>
+  <div class="bar"><b>Studio</b><select id="st"></select><b>Period</b><div class="seg" id="per"><button data-p="3">3 months</button><button data-p="6">6 months</button><button data-p="12" class="on">12 months</button></div></div>
+  <div class="kpis">
+    <div class="kpi"><span>Active members (latest month)</span><b id="k1"></b><br><small id="k1d"></small></div>
+    <div class="kpi"><span>Monthly churn (average)</span><b id="k2"></b><br><small id="k2d"></small></div>
+    <div class="kpi"><span>Revenue</span><b id="k3"></b><br><small id="k3d"></small></div>
+    <div class="kpi"><span>Average class fill</span><b id="k4"></b><br><small id="k4d" style="color:var(--muted)"></small></div>
+  </div>
+  <div class="grid">
+    <div class="card"><h2>Members joining vs leaving</h2><p>New members and cancellations per month · line = active members · dashed = retention programme launched</p><div class="ch"><canvas id="mem"></canvas></div></div>
+    <div class="card"><h2>Revenue mix</h2><p>Selected period</p><div class="ch"><canvas id="rev"></canvas></div></div>
+  </div>
+  <div class="grid" style="grid-template-columns:1fr 1fr">
+    <div class="card"><h2>Class fill rate by type</h2><p>% of class spaces booked · selected period</p><div class="ch"><canvas id="cls"></canvas></div></div>
+    <div class="card"><h2>Peak times</h2><p>Typical class fill by day and time · darker = fuller</p><div id="heat" class="heat"></div></div>
+  </div>
+  <div class="insight" id="ins"></div>
+  <footer>Simulated data for a fictional business. Built to demonstrate membership reporting: growth, churn, revenue and capacity. Dashboard by <a href="/">Northlight Data</a>.</footer>
+</div>
+<script>
+const D={"m":["2025-05","2025-06","2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09","2026-10"],"rows":[["2025-05","Central","_",656,71,35,32144,10045,2328],["2025-05","Central","HIIT",40,800,661],["2025-05","Central","Yoga",32,576,441],["2025-05","Central","Spin",36,864,790],["2025-05","Central","Strength",28,448,294],["2025-05","Central","Pilates",24,336,304],["2025-05","Eastside","_",461,50,23,22589,7257,1820],["2025-05","Eastside","HIIT",28,560,451],["2025-05","Eastside","Yoga",22,396,305],["2025-05","Eastside","Spin",25,600,531],["2025-05","Eastside","Strength",19,304,202],["2025-05","Eastside","Pilates",16,224,194],["2025-06","Central","_",694,70,32,34006,10208,2757],["2025-06","Central","HIIT",40,800,643],["2025-06","Central","Yoga",32,576,439],["2025-06","Central","Spin",36,864,791],["2025-06","Central","Strength",28,448,308],["2025-06","Central","Pilates",24,336,305],["2025-06","Eastside","_",481,43,23,23569,7591,1414],["2025-06","Eastside","HIIT",28,560,438],["2025-06","Eastside","Yoga",22,396,304],["2025-06","Eastside","Spin",25,600,538],["2025-06","Eastside","Strength",19,304,198],["2025-06","Eastside","Pilates",16,224,195],["2025-07","Central","_",710,65,49,34790,9214,2363],["2025-07","Central","HIIT",40,800,634],["2025-07","Central","Yoga",32,576,416],["2025-07","Central","Spin",36,864,724],["2025-07","Central","Strength",28,448,291],["2025-07","Central","Pilates",24,336,282],["2025-07","Eastside","_",499,55,37,24451,7271,1682],["2025-07","Eastside","HIIT",28,560,435],["2025-07","Eastside","Yoga",22,396,276],["2025-07","Eastside","Spin",25,600,511],["2025-07","Eastside","Strength",19,304,196],["2025-07","Eastside","Pilates",16,224,194],["2025-08","Central","_",726,65,49,35574,10775,2300],["2025-08","Central","HIIT",40,800,647],["2025-08","Central","Yoga",32,576,414],["2025-08","Central","Spin",36,864,756],["2025-08","Central","Strength",28,448,316],["2025-08","Central","Pilates",24,336,292],["2025-08","Eastside","_",505,43,37,24745,7096,1721],["2025-08","Eastside","HIIT",28,560,433],["2025-08","Eastside","Yoga",22,396,303],["2025-08","Eastside","Spin",25,600,491],["2025-08","Eastside","Strength",19,304,208],["2025-08","Eastside","Pilates",16,224,198],["2025-09","Central","_",772,89,43,37828,11566,2772],["2025-09","Central","HIIT",40,800,649],["2025-09","Central","Yoga",32,576,427],["2025-09","Central","Spin",36,864,710],["2025-09","Central","Strength",28,448,290],["2025-09","Central","Pilates",24,336,303],["2025-09","Eastside","_",548,70,27,26852,7768,2527],["2025-09","Eastside","HIIT",28,560,441],["2025-09","Eastside","Yoga",22,396,303],["2025-09","Eastside","Spin",25,600,551],["2025-09","Eastside","Strength",19,304,207],["2025-09","Eastside","Pilates",16,224,187],["2025-10","Central","_",798,71,45,39102,11088,2152],["2025-10","Central","HIIT",40,800,624],["2025-10","Central","Yoga",32,576,432],["2025-10","Central","Spin",36,864,763],["2025-10","Central","Strength",28,448,298],["2025-10","Central","Pilates",24,336,303],["2025-10","Eastside","_",571,55,32,27979,8767,1927],["2025-10","Eastside","HIIT",28,560,471],["2025-10","Eastside","Yoga",22,396,305],["2025-10","Eastside","Spin",25,600,546],["2025-10","Eastside","Strength",19,304,213],["2025-10","Eastside","Pilates",16,224,201],["2025-11","Central","_",826,74,46,40474,12191,2899],["2025-11","Central","HIIT",40,800,628],["2025-11","Central","Yoga",32,576,401],["2025-11","Central","Spin",36,864,731],["2025-11","Central","Strength",28,448,309],["2025-11","Central","Pilates",24,336,302],["2025-11","Eastside","_",589,47,29,28861,9245,1401],["2025-11","Eastside","HIIT",28,560,478],["2025-11","Eastside","Yoga",22,396,299],["2025-11","Eastside","Spin",25,600,527],["2025-11","Eastside","Strength",19,304,220],["2025-11","Eastside","Pilates",16,224,203],["2025-12","Central","_",822,63,67,40278,11631,2645],["2025-12","Central","HIIT",40,800,674],["2025-12","Central","Yoga",32,576,403],["2025-12","Central","Spin",36,864,710],["2025-12","Central","Strength",28,448,288],["2025-12","Central","Pilates",24,336,309],["2025-12","Eastside","_",605,57,41,29645,8037,1942],["2025-12","Eastside","HIIT",28,560,471],["2025-12","Eastside","Yoga",22,396,298],["2025-12","Eastside","Spin",25,600,545],["2025-12","Eastside","Strength",19,304,219],["2025-12","Eastside","Pilates",16,224,205],["2026-01","Central","_",931,149,40,45619,12083,6141],["2026-01","Central","HIIT",40,800,724],["2026-01","Central","Yoga",32,576,454],["2026-01","Central","Spin",36,864,790],["2026-01","Central","Strength",28,448,329],["2026-01","Central","Pilates",24,336,322],["2026-01","Eastside","_",668,95,32,32732,9046,2848],["2026-01","Eastside","HIIT",28,560,482],["2026-01","Eastside","Yoga",22,396,304],["2026-01","Eastside","Spin",25,600,547],["2026-01","Eastside","Strength",19,304,226],["2026-01","Eastside","Pilates",16,224,209],["2026-02","Central","_",963,83,51,47187,13756,3154],["2026-02","Central","HIIT",40,800,628],["2026-02","Central","Yoga",32,576,397],["2026-02","Central","Spin",36,864,714],["2026-02","Central","Strength",28,448,299],["2026-02","Central","Pilates",24,336,294],["2026-02","Eastside","_",682,49,35,33418,10476,1417],["2026-02","Eastside","HIIT",28,560,451],["2026-02","Eastside","Yoga",22,396,285],["2026-02","Eastside","Spin",25,600,508],["2026-02","Eastside","Strength",19,304,213],["2026-02","Eastside","Pilates",16,224,192],["2026-03","Central","_",988,66,41,48412,15588,2229],["2026-03","Central","HIIT",40,800,619],["2026-03","Central","Yoga",32,576,446],["2026-03","Central","Spin",36,864,765],["2026-03","Central","Strength",28,448,322],["2026-03","Central","Pilates",24,336,293],["2026-03","Eastside","_",712,58,28,34888,9714,2334],["2026-03","Eastside","HIIT",28,560,455],["2026-03","Eastside","Yoga",22,396,300],["2026-03","Eastside","Spin",25,600,515],["2026-03","Eastside","Strength",19,304,217],["2026-03","Eastside","Pilates",16,224,189],["2026-04","Central","_",1025,80,43,50225,13872,3321],["2026-04","Central","HIIT",40,800,643],["2026-04","Central","Yoga",32,576,437],["2026-04","Central","Spin",36,864,733],["2026-04","Central","Strength",28,448,314],["2026-04","Central","Pilates",24,336,314],["2026-04","Eastside","_",737,56,31,36113,10969,2379],["2026-04","Eastside","HIIT",28,560,471],["2026-04","Eastside","Yoga",22,396,288],["2026-04","Eastside","Spin",25,600,516],["2026-04","Eastside","Strength",19,304,197],["2026-04","Eastside","Pilates",16,224,206],["2026-05","Central","_",1050,70,45,51450,13708,2181],["2026-05","Central","HIIT",40,800,640],["2026-05","Central","Yoga",32,576,420],["2026-05","Central","Spin",36,864,723],["2026-05","Central","Strength",28,448,303],["2026-05","Central","Pilates",24,336,308],["2026-05","Eastside","_",754,48,31,36946,10906,2007],["2026-05","Eastside","HIIT",28,560,477],["2026-05","Eastside","Yoga",22,396,292],["2026-05","Eastside","Spin",25,600,496],["2026-05","Eastside","Strength",19,304,217],["2026-05","Eastside","Pilates",16,224,211],["2026-06","Central","_",1089,88,49,53361,15313,3278],["2026-06","Central","HIIT",40,800,672],["2026-06","Central","Yoga",32,576,447],["2026-06","Central","Spin",36,864,752],["2026-06","Central","Strength",28,448,306],["2026-06","Central","Pilates",24,336,292],["2026-06","Eastside","_",775,56,35,37975,10675,1982],["2026-06","Eastside","HIIT",28,560,477],["2026-06","Eastside","Yoga",22,396,280],["2026-06","Eastside","Spin",25,600,507],["2026-06","Eastside","Strength",19,304,202],["2026-06","Eastside","Pilates",16,224,208],["2026-07","Central","_",1091,75,73,53459,17057,3105],["2026-07","Central","HIIT",40,800,673],["2026-07","Central","Yoga",32,576,406],["2026-07","Central","Spin",36,864,748],["2026-07","Central","Strength",28,448,318],["2026-07","Central","Pilates",24,336,290],["2026-07","Eastside","_",779,57,53,38171,12190,1929],["2026-07","Eastside","HIIT",28,560,433],["2026-07","Eastside","Yoga",22,396,273],["2026-07","Eastside","Spin",25,600,511],["2026-07","Eastside","Strength",19,304,208],["2026-07","Eastside","Pilates",16,224,194],["2026-08","Central","_",1108,88,71,54292,16341,3582],["2026-08","Central","HIIT",40,800,635],["2026-08","Central","Yoga",32,576,429],["2026-08","Central","Spin",36,864,739],["2026-08","Central","Strength",28,448,298],["2026-08","Central","Pilates",24,336,285],["2026-08","Eastside","_",787,61,53,38563,10270,2386],["2026-08","Eastside","HIIT",28,560,430],["2026-08","Eastside","Yoga",22,396,287],["2026-08","Eastside","Spin",25,600,511],["2026-08","Eastside","Strength",19,304,217],["2026-08","Eastside","Pilates",16,224,197],["2026-09","Central","_",1163,105,50,56987,15925,3391],["2026-09","Central","HIIT",40,800,614],["2026-09","Central","Yoga",32,576,397],["2026-09","Central","Spin",36,864,757],["2026-09","Central","Strength",28,448,314],["2026-09","Central","Pilates",24,336,305],["2026-09","Eastside","_",815,68,40,39935,10747,2381],["2026-09","Eastside","HIIT",28,560,445],["2026-09","Eastside","Yoga",22,396,278],["2026-09","Eastside","Spin",25,600,551],["2026-09","Eastside","Strength",19,304,213],["2026-09","Eastside","Pilates",16,224,190],["2026-10","Central","_",1179,73,57,57771,16544,2419],["2026-10","Central","HIIT",40,800,633],["2026-10","Central","Yoga",32,576,413],["2026-10","Central","Spin",36,864,760],["2026-10","Central","Strength",28,448,299],["2026-10","Central","Pilates",24,336,302],["2026-10","Eastside","_",826,49,38,40474,12093,1636],["2026-10","Eastside","HIIT",28,560,474],["2026-10","Eastside","Yoga",22,396,305],["2026-10","Eastside","Spin",25,600,532],["2026-10","Eastside","Strength",19,304,205],["2026-10","Eastside","Pilates",16,224,191]],"st":["Central","Eastside"],"cls":["HIIT","Yoga","Spin","Strength","Pilates"],"heat":{"Central":[[0.94,0.9,0.55,0.44,0.56,0.45,0.61,0.86,0.95,0.56],[0.9,0.96,0.63,0.43,0.61,0.43,0.62,0.88,0.95,0.55],[0.93,0.96,0.62,0.46,0.59,0.43,0.6,0.95,0.94,0.6],[0.96,0.99,0.6,0.46,0.61,0.43,0.61,0.91,0.97,0.62],[0.98,0.98,0.6,0.44,0.57,0.45,0.62,0.91,0.88,0.61],[0.98,0.88,0.58,0.43,0.59,0.46,0.45,0.77,0.69,0.45],[0.93,0.96,0.61,0.47,0.57,0.43,0.47,0.68,0.71,0.46]],"Eastside":[[0.95,0.88,0.56,0.47,0.6,0.43,0.61,0.96,0.97,0.59],[0.94,0.87,0.58,0.43,0.56,0.43,0.62,0.89,0.87,0.57],[0.88,0.86,0.62,0.44,0.54,0.44,0.56,0.92,0.99,0.63],[0.91,0.97,0.58,0.41,0.58,0.46,0.61,0.96,1.0,0.57],[0.96,0.97,0.62,0.46,0.62,0.43,0.57,0.94,0.87,0.57],[0.91,0.88,0.58,0.47,0.57,0.41,0.49,0.79,0.71,0.48],[0.87,0.89,0.58,0.47,0.59,0.46,0.48,0.77,0.78,0.47]]},"days":["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],"hours":[6,7,8,9,12,13,17,18,19,20]};
+Chart.defaults.font.family="Inter, system-ui, sans-serif";Chart.defaults.color="#5D667A";
+const $=id=>document.getElementById(id);["Both studios",...D.st].forEach(x=>$("st").add(new Option(x,x)));
+let P=12;document.querySelectorAll("#per button").forEach(b=>b.onclick=()=>{document.querySelectorAll("#per button").forEach(x=>x.classList.remove("on"));b.classList.add("on");P=+b.dataset.p;draw()});
+const k=v=>v>=1e6?"£"+(v/1e6).toFixed(2)+"M":"£"+(v/1000).toFixed(1)+"k",money=v=>"£"+Math.round(v).toLocaleString();
+const sel=s=>s==="Both studios"?D.st:[s];
+function m1(mo,s){let a=0,n=0,c=0,mr=0,pt=0,pk=0;D.rows.forEach(x=>{if(x[0]!==mo||x[2]!=="_"||!sel(s).includes(x[1]))return;a+=x[3];n+=x[4];c+=x[5];mr+=x[6];pt+=x[7];pk+=x[8]});return{a,n,c,mr,pt,pk}}
+function cl(ms,s,c){let ses=0,cap=0,att=0;D.rows.forEach(x=>{if(!ms.includes(x[0])||x[2]==="_"||!sel(s).includes(x[1]))return;if(c&&x[2]!==c)return;ses+=x[3];cap+=x[4];att+=x[5]});return{ses,cap,att}}
+let c1,c2,c3;
+function draw(){
+  const s=$("st").value,N=D.m.length,cur=D.m.slice(N-P),prev=D.m.slice(Math.max(0,N-2*P),N-P);
+  const L=m1(D.m[N-1],s),L0=m1(prev.length?prev[prev.length-1]:D.m[0],s);
+  $("k1").textContent=L.a.toLocaleString();const g=(L.a/L0.a-1)*100;$("k1d").className=g>=0?"up":"down";$("k1d").textContent=(g>=0?"▲ +":"▼ ")+g.toFixed(1)+"% vs start of period";
+  const churn=ms=>{let c=0,a=0;ms.forEach(m=>{const x=m1(m,s);c+=x.c;a+=x.a});return c/a};
+  const ch=churn(cur),chb=prev.length?churn(prev):null;$("k2").textContent=(ch*100).toFixed(1)+"%";
+  if(chb){const x=(ch-chb)*100;$("k2d").className=x<=0?"up":"down";$("k2d").textContent=(x<=0?"▼ ":"▲ +")+Math.abs(x).toFixed(1)+" pts vs prior period"}else $("k2d").textContent="";
+  const rv=ms=>ms.reduce((t,m)=>{const x=m1(m,s);return t+x.mr+x.pt+x.pk},0);const R=rv(cur),Rb=prev.length?rv(prev)*cur.length/prev.length:0;
+  $("k3").textContent=k(R);if(Rb){const x=(R/Rb-1)*100;$("k3d").className=x>=0?"up":"down";$("k3d").textContent=(x>=0?"▲ +":"▼ ")+x.toFixed(1)+"% vs prior period"}
+  const C=cl(cur,s);$("k4").textContent=(C.att/C.cap*100).toFixed(0)+"%";$("k4d").textContent=C.ses.toLocaleString()+" classes run";
+  const lab=D.m.map(m=>new Date(m+"-01").toLocaleDateString("en",{month:"short",year:"2-digit"}));
+  c1&&c1.destroy();c1=new Chart($("mem"),{data:{labels:lab,datasets:[
+    {type:"bar",label:"New members",data:D.m.map(m=>m1(m,s).n),backgroundColor:"#3E9E8E",yAxisID:"y"},
+    {type:"bar",label:"Cancellations",data:D.m.map(m=>-m1(m,s).c),backgroundColor:"#E07A5F",yAxisID:"y"},
+    {type:"line",label:"Active members",data:D.m.map(m=>m1(m,s).a),borderColor:"#1B2B4B",backgroundColor:"#1B2B4B",borderWidth:3,tension:.3,pointRadius:2,yAxisID:"y1"}]},
+    options:{maintainAspectRatio:false,scales:{x:{stacked:true,grid:{display:false}},y:{stacked:true,ticks:{callback:v=>Math.abs(v)}},y1:{position:"right",grid:{display:false}}},plugins:{legend:{position:"bottom",labels:{boxWidth:12}},tooltip:{callbacks:{label:c=>c.dataset.label+": "+Math.abs(c.raw).toLocaleString()}}}},
+    plugins:[{id:"mk",afterDraw(ch){const x=ch.scales.x.getPixelForValue(10),a=ch.chartArea,g=ch.ctx;g.save();g.setLineDash([5,4]);g.strokeStyle="#1B2B4B";g.beginPath();g.moveTo(x,a.top);g.lineTo(x,a.bottom);g.stroke();g.fillStyle="#1B2B4B";g.font="11px Inter";g.fillText("Retention programme",x+4,a.top+12);g.restore()}}]});
+  let mr=0,pt=0,pk=0;cur.forEach(m=>{const x=m1(m,s);mr+=x.mr;pt+=x.pt;pk+=x.pk});
+  c2&&c2.destroy();c2=new Chart($("rev"),{type:"doughnut",data:{labels:["Memberships","Personal training","Class packs"],datasets:[{data:[mr,pt,pk],backgroundColor:["#1B2B4B","#F2B84B","#3E9E8E"],borderColor:"#fff",borderWidth:2}]},options:{maintainAspectRatio:false,cutout:"58%",plugins:{legend:{position:"bottom",labels:{boxWidth:12}},tooltip:{callbacks:{label:c=>c.label+": "+money(c.raw)+" ("+(c.raw/R*100).toFixed(0)+"%)"}}}}});
+  const fills=D.cls.map(c=>{const x=cl(cur,s,c);return[c,x.att/x.cap*100]}).sort((a,b)=>b[1]-a[1]);
+  c3&&c3.destroy();c3=new Chart($("cls"),{type:"bar",data:{labels:fills.map(f=>f[0]),datasets:[{data:fills.map(f=>f[1]),backgroundColor:fills.map(f=>f[1]>=85?"#3E9E8E":f[1]<72?"#E07A5F":"#1B2B4B"),borderRadius:6}]},options:{indexAxis:"y",maintainAspectRatio:false,scales:{x:{min:0,max:100,ticks:{callback:v=>v+"%"}},y:{grid:{display:false}}},plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw.toFixed(0)+"% full"}}}}});
+  const Hm=s==="Both studios"?D.heat[D.st[0]].map((r,i)=>r.map((v,j)=>(v+D.heat[D.st[1]][i][j])/2)):D.heat[s];
+  let h='<div style="grid-template-columns:42px repeat('+D.hours.length+',1fr);display:grid;gap:3px"><span></span>'+D.hours.map(x=>'<span style="text-align:center">'+x+'</span>').join("");
+  Hm.forEach((r,i)=>{h+='<span style="align-self:center">'+D.days[i]+'</span>'+r.map(v=>'<div class="hc" title="'+(v*100).toFixed(0)+'% full" style="background:rgba(27,43,75,'+(0.08+v*0.92).toFixed(2)+')"></div>').join("")});
+  $("heat").innerHTML=h+'</div><p style="margin:10px 0 0">Early mornings and 6–7pm are fullest. Midday slots have spare capacity, ideal for off-peak offers.</p>';
+  const b=churn(D.m.slice(0,10)),a=churn(D.m.slice(N-6));
+  $("ins").innerHTML="💡 <b>Key insight:</b> Since the retention programme started, average monthly churn fell from <b>"+(b*100).toFixed(1)+"%</b> to <b>"+(a*100).toFixed(1)+"%</b> (last 6 months). <b>"+fills[0][0]+"</b> classes are almost full ("+fills[0][1].toFixed(0)+"%), so add sessions; <b>"+fills[fills.length-1][0]+"</b> has the most spare space ("+fills[fills.length-1][1].toFixed(0)+"%).";
+}
+$("st").onchange=draw;draw();
+</script>
+</body></html>
