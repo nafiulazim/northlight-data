@@ -94,9 +94,12 @@ nav{display:flex;align-items:center;justify-content:space-between;height:72px}
 .p-ins{margin-top:12px;padding:12px 14px;border-radius:12px;background:rgba(242,184,75,.1);color:#F7DCA6;font-size:14.5px;min-height:3.6em}
 
 /* tools */
-.tools{background:var(--night);border-top:1px solid rgba(255,255,255,.08);padding:22px 0;color:var(--on-dark-m);font-size:15px}
-.tools .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:10px 28px}
-.tools b{color:var(--on-dark);font-weight:600}
+.tools{background:var(--night);border-top:1px solid rgba(255,255,255,.08);padding:clamp(28px,4vw,40px) 0;color:var(--on-dark-m);font-size:15.5px}
+.t-head{font-family:var(--display);font-weight:650;color:#fff;font-size:clamp(19px,1.8vw,22px);margin-bottom:18px}
+.t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px clamp(20px,3vw,40px)}
+.t-grid div{border-left:2px solid var(--teal);padding-left:16px}
+.t-grid b{display:block;color:var(--on-dark);font-weight:600;margin-bottom:4px}
+@media (max-width:760px){.t-grid{grid-template-columns:1fr}}
 
 /* who */
 .who{display:grid;grid-template-columns:1fr 1fr;margin-top:clamp(40px,5vw,64px);border-top:2px solid var(--ink)}
@@ -294,7 +297,14 @@ footer a{text-decoration:none}footer a:hover{color:var(--ink)}
   </div>
 </section>
 
-<div class="tools" aria-label="Tools we work with"><div class="wrap"><b>We work in the tools you already use:</b> <span>Power BI</span><span>Looker Studio</span><span>Tableau</span><span>Excel</span><span>Google Sheets</span><span>KoboToolbox</span><span>Airtable</span><span>Python &amp; SQL</span></div></div>
+<div class="tools" aria-label="Where you can start"><div class="wrap">
+  <p class="t-head">Start from wherever you are</p>
+  <div class="t-grid">
+    <div><b>No system yet?</b><span>Till reports, invoices, paper registers or a notebook. We'll set up something simple from scratch.</span></div>
+    <div><b>Using spreadsheets?</b><span>Excel or Google Sheets files that take hours each month. We'll turn them into a dashboard that updates itself.</span></div>
+    <div><b>Already have software?</b><span>Power BI, Looker Studio, KoboToolbox, your booking or accounting system. We'll build right inside it.</span></div>
+  </div>
+</div></div>
 
 <section id="who" aria-labelledby="who-h"><div class="wrap">
   <div class="kicker">Who we help</div>
