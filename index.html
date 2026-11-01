@@ -160,6 +160,13 @@ nav{display:flex;align-items:center;justify-content:space-between;height:72px}
 .demo h3{color:#fff}
 .demo p{color:var(--on-dark-m);font-size:15px;margin-top:8px}
 .demo span{display:inline-block;margin-top:14px;color:var(--gold);font-weight:600;font-size:15px}
+.ai-groups{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(28px,3.5vw,48px);margin-top:clamp(40px,5vw,60px)}
+.ai-g h3{color:var(--gold);font-size:20px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.18)}
+.ai-g ul{list-style:none;display:grid;gap:18px;margin-top:18px}
+.ai-g b{display:block;color:#fff;font-weight:600}
+.ai-g span{display:block;color:var(--on-dark-m);font-size:15.5px;margin-top:3px}
+@media (max-width:980px){.ai-groups{grid-template-columns:1fr 1fr}.ai-g:first-child{grid-column:1/-1}.ai-g:first-child ul{grid-template-columns:1fr 1fr;column-gap:32px}}
+@media (max-width:680px){.ai-groups{grid-template-columns:1fr}.ai-g:first-child ul{grid-template-columns:1fr}}
 .ai-foot{display:flex;flex-wrap:wrap;align-items:center;gap:16px 28px;margin-top:44px;color:var(--on-dark-m);font-size:15px}
 
 /* why + process */
@@ -314,13 +321,13 @@ footer a{text-decoration:none}footer a:hover{color:var(--ink)}
       <h3>Small and growing businesses</h3>
       <p>Cafés, restaurants, shops, clinics, gyms, agencies and multi-branch owners.</p>
       <ul class="ticks"><li>Sales, margins and targets by branch</li><li>Best-sellers and slow movers</li><li>Busiest hours for smarter staffing</li><li>Less waste, better stock decisions</li></ul>
-      <div class="chips"><a href="/work/business.html">Café</a><a href="/work/ecommerce.html">Online store</a><a href="/work/clinic.html">Clinic</a><a href="/work/gym.html">Gym</a><a href="/work/agency.html">Agency</a><a class="ai" href="/work/ai-sales.html">AI sales assistant</a></div>
+      <div class="chips"><a href="/work/business.html">Café</a><a href="/work/ecommerce.html">Online store</a><a href="/work/clinic.html">Clinic</a><a href="/work/gym.html">Gym</a><a href="/work/agency.html">Agency</a></div>
     </div>
     <div>
       <h3>NGOs and development programmes</h3>
       <p>NGOs, foundations, programme teams and development organisations.</p>
       <ul class="ticks"><li>Indicators vs targets, with on-track status</li><li>Donor-ready reports in less time</li><li>Breakdowns by sex, age, location and more</li><li>SDG and results tracking</li></ul>
-      <div class="chips"><a href="/work/programme.html">Programme M&amp;E</a><a href="/work/education.html">Education</a><a href="/work/health.html">Child health</a><a class="ai" href="/work/ai-assistant.html">AI programme assistant</a></div>
+      <div class="chips"><a href="/work/programme.html">Programme M&amp;E</a><a href="/work/education.html">Education</a><a href="/work/health.html">Child health</a></div>
     </div>
   </div>
 </div></section>
@@ -343,7 +350,7 @@ footer a{text-decoration:none}footer a:hover{color:var(--ink)}
 
 <section id="work" class="work" aria-labelledby="work-h"><div class="wrap">
   <div class="work-head">
-    <div><div class="kicker">Our work</div><h2 id="work-h">Explore all our live dashboards</h2><p class="lede">Open any of them and try the filters. Our AI demos are in the next section.</p></div>
+    <div><div class="kicker">Our work</div><h2 id="work-h">Explore all our live dashboards</h2><p class="lede">Open any of them and try the filters.</p></div>
     <div class="filters" role="group" aria-label="Filter dashboards"><button aria-pressed="true" data-f="all">All</button><button aria-pressed="false" data-f="biz">Business</button><button aria-pressed="false" data-f="ngo">NGO &amp; development</button><button aria-pressed="false" data-f="sus">Sustainability</button></div>
   </div>
   <div class="gallery">
@@ -358,7 +365,7 @@ footer a{text-decoration:none}footer a:hover{color:var(--ink)}
     <a class="tile big" data-cat="sus" href="/work/energy.html"><div class="shot"><img src="/work/energy-thumb.png" alt="Energy transition dashboard" loading="lazy"></div><div class="meta"><span class="badge live-d">Public data</span>Sustainability</div><h3>Global Energy Transition</h3><p>How 138 countries generate electricity, from coal to solar, 2000–2024.</p></a>
     <a class="tile big" data-cat="sus" href="/work/co2.html"><div class="shot"><img src="/work/co2-thumb.png" alt="CO2 emissions explorer" loading="lazy"></div><div class="meta"><span class="badge live-d">Public data</span>Sustainability</div><h3>CO₂ Emissions Explorer</h3><p>Emissions by country, fuel source and per person, with side-by-side comparison.</p></a>
   </div>
-  <p class="src">Public-data dashboards use Our World in Data and UN IGME, WHO/UNICEF and UNESCO data via Gapminder. The business, programme M&amp;E and AI demos use fictional data. Client work is always kept confidential.</p>
+  <p class="src">Public-data dashboards use Our World in Data and UN IGME, WHO/UNICEF and UNESCO data via Gapminder. The business and programme M&amp;E demos use fictional data. Client work is always kept confidential.</p>
 </div></section>
 
 <section id="ai" class="ai" aria-labelledby="ai-h">
@@ -366,19 +373,38 @@ footer a{text-decoration:none}footer a:hover{color:var(--ink)}
   <div class="wrap">
     <div class="kicker">AI services</div>
     <h2 id="ai-h">Put AI to work on your data</h2>
-    <p class="lede">Practical, responsible AI that saves your team hours, built on your own data and tools.</p>
-    <div class="ai-svc">
-      <div><h3>Ask-your-data assistants</h3><p>Chat with your sales or programme data in plain language and get instant, sourced answers.</p></div>
-      <div><h3>Survey and feedback analysis</h3><p>Turn open-ended answers, complaints or reviews into themes and sentiment, in any language.</p></div>
-      <div><h3>Automated report drafting</h3><p>First drafts of monthly summaries and donor reports, written straight from your numbers.</p></div>
-      <div><h3>Cleaning and automation</h3><p>AI-assisted cleaning, categorising and routine tasks that remove hours of copy-paste.</p></div>
+    <p class="lede">Practical, responsible AI that saves your team hours. No jargon, no big systems: just useful help built around the way you already work.</p>
+    <div class="ai-groups">
+      <div class="ai-g">
+        <h3>For any organisation</h3>
+        <ul>
+          <li><b>Ask your data questions</b><span>Type a question like "Which month was best?" and get a clear answer from your own numbers.</span></li>
+          <li><b>Make sense of feedback</b><span>Reviews, survey answers or complaints sorted into themes and moods, in any language.</span></li>
+          <li><b>First drafts of reports</b><span>Monthly summaries and updates written straight from your figures, ready for you to check.</span></li>
+          <li><b>Read forms and documents for you</b><span>Pull key details out of invoices, PDFs, scanned forms and emails into a tidy sheet.</span></li>
+          <li><b>Cut out repetitive tasks</b><span>Copy-paste jobs, data entry and sorting done automatically every week.</span></li>
+        </ul>
+      </div>
+      <div class="ai-g">
+        <h3>For businesses</h3>
+        <ul>
+          <li><b>Answer customer questions</b><span>A helper on your website or WhatsApp that answers common questions about prices, hours and bookings.</span></li>
+          <li><b>Plan stock and staff</b><span>Predict busy days and best-sellers, so you order the right amount and roster the right people.</span></li>
+          <li><b>Marketing help in your voice</b><span>Social posts, product descriptions and emails drafted in your brand's style.</span></li>
+          <li><b>Spot customers about to leave</b><span>Early warning when regulars or members stop coming, so you can win them back.</span></li>
+        </ul>
+      </div>
+      <div class="ai-g">
+        <h3>For NGOs and programmes</h3>
+        <ul>
+          <li><b>Donor reports and proposals</b><span>Drafts built from your results framework and past reports, in the donor's format.</span></li>
+          <li><b>Interviews and focus groups</b><span>Transcripts coded into key themes and quotes in hours, not weeks.</span></li>
+          <li><b>Search your own documents</b><span>Ask questions across guidelines, policies and past evaluations and get answers with the source.</span></li>
+          <li><b>Translate surveys and summaries</b><span>Questionnaires and findings translated for field teams and communities, checked by people.</span></li>
+        </ul>
+      </div>
     </div>
-    <div class="demos">
-      <a class="demo" href="/work/ai-sales.html"><img src="/work/ai-sales-thumb.png" alt="AI sales assistant demo" loading="lazy"><div><h3>AI Sales Assistant</h3><p>A business owner asks "Which branch is growing fastest?" and gets instant answers from their sales data.</p><span>Try the live demo</span></div></a>
-      <a class="demo" href="/work/ai-assistant.html"><img src="/work/ai-assistant-thumb.png" alt="AI programme assistant demo" loading="lazy"><div><h3>AI Programme Assistant</h3><p>Ask "Which district is behind?" and get answers from programme results, plus donor-ready summaries.</p><span>Try the live demo</span></div></a>
-      <a class="demo" href="/work/ai-feedback.html"><img src="/work/ai-feedback-thumb.png" alt="AI feedback analyser demo" loading="lazy"><div><h3>AI Feedback Analyser</h3><p>Paste survey answers or customer reviews and get themes, sentiment and recommended actions.</p><span>Try the live demo</span></div></a>
-    </div>
-    <div class="ai-foot"><a class="btn gold" href="#contact">Discuss an AI project</a><span>Outputs are human-reviewed and your data stays private.</span></div>
+    <div class="ai-foot"><a class="btn gold" href="#contact">Discuss an AI project</a><span>Every AI output is checked by a person, and your data stays private.</span></div>
   </div>
 </section>
 
