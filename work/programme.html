@@ -63,7 +63,7 @@ table{width:100%;border-collapse:collapse;font-size:.88rem}th,td{text-align:left
 }
 </style>
 </head>
-<body>
+<body><script>/* big monitors: scale the page to fill the screen */(function(){var r=document.documentElement;function fit(){r.style.zoom='';var w=r.clientWidth,h=innerHeight,z=Math.min(w/1360,h/760);r.style.zoom=(w>1600&&z>1.05)?z.toFixed(3):'';window.Chart&&Object.values(Chart.instances||{}).forEach(function(c){c.resize()})}fit();addEventListener('resize',fit)})();</script>
 <div class="top"><div class="wrap">
   <div><h1>Project Horizon · WASH Results Dashboard</h1><div class="sub">Programme results framework: indicators, reach and budget, 2025–2026</div></div>
   <a href="/">← Northlight Data</a>
@@ -131,5 +131,5 @@ function draw(){
 }
 $("ds").onchange=draw;$("qs").onchange=draw;draw();
 </script>
-</body>
+<script>/* keep chart hover accurate when the page is scaled */(function(){function reg(){if(!window.Chart)return setTimeout(reg,50);Chart.register({id:'zoomfix',beforeEvent:function(c,a){var z=parseFloat(document.documentElement.style.zoom)||1,n=a.event.native;if(z===1||!n||n.clientX==null)return;var r=c.canvas.getBoundingClientRect();a.event.x=(n.clientX-r.left)*c.width/r.width;a.event.y=(n.clientY-r.top)*c.height/r.height}})}reg()})();</script></body>
 </html>

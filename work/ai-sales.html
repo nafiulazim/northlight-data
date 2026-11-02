@@ -80,7 +80,7 @@ textarea{width:100%;min-height:260px;padding:14px;border:1.5px solid var(--line)
 @media(max-width:700px){.tgrid{grid-template-columns:1fr}.chatbox{height:500px}}
 </style>
 </head>
-<body>
+<body><script>/* big monitors: scale the page to fill the screen */(function(){var r=document.documentElement;function fit(){r.style.zoom='';var w=r.clientWidth,h=innerHeight,z=Math.min(w/1360,h/760);r.style.zoom=(w>1600&&z>1.05)?z.toFixed(3):'';window.Chart&&Object.values(Chart.instances||{}).forEach(function(c){c.resize()})}fit();addEventListener('resize',fit)})();</script>
 <div class="top"><div class="wrap">
   <div><h1>AI Sales Assistant · Small Business</h1><div class="sub">Ask your sales data anything, from best-sellers to staffing, and get instant answers with practical advice</div></div>
   <a href="/">← Northlight Data</a>
@@ -133,4 +133,4 @@ async function ask(text){text=(text||"").trim();if(!text)return;$("q").value="";
 $("send").onclick=()=>ask($("q").value);$("q").addEventListener("keydown",e=>{if(e.key==="Enter")ask($("q").value)});
 document.querySelectorAll("#chips .chip").forEach(c=>c.onclick=()=>ask(c.textContent));
 </script>
-</body></html>
+<script>/* keep chart hover accurate when the page is scaled */(function(){function reg(){if(!window.Chart)return setTimeout(reg,50);Chart.register({id:'zoomfix',beforeEvent:function(c,a){var z=parseFloat(document.documentElement.style.zoom)||1,n=a.event.native;if(z===1||!n||n.clientX==null)return;var r=c.canvas.getBoundingClientRect();a.event.x=(n.clientX-r.left)*c.width/r.width;a.event.y=(n.clientY-r.top)*c.height/r.height}})}reg()})();</script></body></html>
