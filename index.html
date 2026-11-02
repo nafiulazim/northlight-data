@@ -258,6 +258,11 @@ footer a{text-decoration:none}footer a:hover{color:var(--ink)}
 </head>
 <body>
 
+<script>
+/* big monitors: scale the whole page so it fills the screen like on a laptop */
+(function(){var r=document.documentElement;function fit(){r.style.zoom='';var w=r.clientWidth,h=innerHeight,z=Math.min(w/1440,h/760);r.style.zoom=(w>1600&&z>1.05)?z.toFixed(3):''}
+fit();addEventListener('resize',fit)})();
+</script>
 <header id="hdr"><div class="wrap"><nav aria-label="Main">
   <a class="brand" href="#top" aria-label="Northlight Data home">
     <svg viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="108" fill="#1B2B4B"/><rect x="112" y="300" width="72" height="112" rx="16" fill="#F2B84B"/><rect x="220" y="232" width="72" height="180" rx="16" fill="#FFFFFF"/><rect x="328" y="172" width="72" height="240" rx="16" fill="#FFFFFF"/><path d="M364 62 L374 104 L416 114 L374 124 L364 166 L354 124 L312 114 L354 104 Z" fill="#F2B84B"/></svg>
